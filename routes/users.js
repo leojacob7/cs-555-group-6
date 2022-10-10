@@ -9,18 +9,16 @@ router.route('/login')
 
         const userName = request.body.username;
         const passwd = request.body.password;
-
-        console.log("userName : "+userName);
-        console.log("passwd : "+passwd);
               
         try{
-            if(!userName || !passwd){
+                   if(!userName || !passwd){
                 throw 'Username, Password (both) have to be provided';
         
             }
-            
+          
             userData.userValidationChk(userName);
             userData.userPasswordValidationChk(passwd);
+           
             
             const usrLoginChkResponse = await userData.loginCheck(userName,passwd);
             //console.log("usrLoginChkResponse : "+usrLoginChkResponse);
@@ -32,8 +30,7 @@ router.route('/login')
                       
         }
         catch(e){
-            console.log("error : "+typeof e === 'string' ? e : e.message);
-            response.status(400).send("Error logging in : "+typeof e === 'string' ? e : e.message);
+            response.status(400).send("Error logging in : "+e);
             return;
         }
        });

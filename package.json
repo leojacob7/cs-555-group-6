@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Srinivas Srimantula",
+  "author": "cs-555-group-6",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
