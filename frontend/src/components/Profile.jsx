@@ -1,134 +1,144 @@
 import React from 'react'
-import { Container,Row,Col,Form ,Button} from '@chakra-ui/react';
+import { Container,Row,Col,Form ,Button, HStack, Divider, VStack} from '@chakra-ui/react';
 import {connect} from '@chakra-ui/react';
 import { Grid, GridItem } from '@chakra-ui/react'
 import { Center, Square, Circle } from '@chakra-ui/react'
+import { StarIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
+import {
+    Heading,
+    Avatar,
+    Box,
+    Image,
+    Flex,
+    Text,
+    Stack,
+    useColorModeValue,
+  } from '@chakra-ui/react';
 
 const axios = require('axios');
 
 
-export const Profile = () => {
-  return (  
-<Center bg='cyan' h='1000px' color='white'>
-<Grid
-  templateAreas={`"header header"
-                  "nav main"
-                  "nav footer"`}
-  gridTemplateRows={'50px 1fr 30px'}
-  gridTemplateColumns={'150px 1fr'}
-  h='200px'
-  gap='1'
-  color='blackAlpha.700'
-  fontWeight='bold'
->
-  <GridItem pl='2' bg='orange.300' area={'header'}>
-    Header
-  </GridItem>
-  <GridItem pl='2' bg='pink.300' area={'nav'}>
-    Nav
-  </GridItem>
-  <GridItem pl='2' bg='green.300' area={'main'}>
-    Main
-  </GridItem>
-  <GridItem pl='2' bg='blue.300' area={'footer'}>
-    Footer
-  </GridItem>
-</Grid>
-{/* <body>
-    <div class="navbar-top">
-        <div class="title">
-            <h1>Profile</h1>
-        </div>
+export default function Profile() {
+    return (
+        <Box maxW='2900px' py={'50px'} px={'270px'}>
+        <Stack spacing='24px' direction={'row'} >
+        <Box 
+          maxW={'270px'}
+          w={'280px'}
+          bg={useColorModeValue('white', 'gray.800')}
+          boxShadow={'2xl'}
+          rounded={'md'}
+          overflow={'hidden'}>
+          <Image
+            h={'120px'}
+            w={'full'}
+            src={
+              'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
+            }
+            objectFit={'cover'}
+          />
+          <Flex justify={'center'} mt={-12}>
+            <Avatar
+              size={'xl'}
+              src={
+                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+              }
+              alt={'Author'}
+              css={{
+                border: '2px solid white',
+              }}
+            />
+          </Flex>
+              
 
+          <Box p={6}>
+            <Stack spacing={0} align={'center'} mb={5}>
+              <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
+                John Doe
+              </Heading>
+              <Text color={'gray.500'}>Frontend Developer</Text>
+            </Stack>
+  
+            <Stack direction={'row'} justify={'center'} spacing={6}>
+              <Stack spacing={0} align={'center'}>
+                <Text fontWeight={600}>23k</Text>
+                <Text fontSize={'sm'} color={'gray.500'}>
+                  Followers
+                </Text>
+              </Stack>
+              <Stack spacing={0} align={'center'}>
+                <Text fontWeight={600}>23k</Text>
+                <Text fontSize={'sm'} color={'gray.500'}>
+                  Followers
+                </Text>
+              </Stack>
+            </Stack>
+  
+            <Button
+              w={'full'}
+              mt={8}
+              bg={useColorModeValue('#151f21', 'gray.900')}
+              color={'white'}
+              rounded={'md'}
+              _hover={{
+                transform: 'translateY(-2px)',
+                boxShadow: 'lg',
+              }}>
+              Follow
+            </Button>
+          </Box>
+        </Box>
+        <Box p={10} maxW={'800px'} maxH={'120px'}
+          w={'full'}
+          bg={useColorModeValue('white', 'gray.800')}
+          boxShadow={'2xl'}
+          rounded={'md'}
+          overflow={'hidden'}>
+        User describe
+      </Box>
+      <Box p={10} maxW={'270px'}
+          w={'full'}
+          bg={useColorModeValue('white', 'gray.800')}
+          boxShadow={'2xl'}
+          rounded={'md'}
+          overflow={'hidden'}>
+            <VStack spacing={'10'}>
 
-        <ul>
-            <li>
-                <a href="#message">
-                    <span class="icon-count">29</span>
-                    <i class="fa fa-envelope fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#notification">
-                    <span class="icon-count">59</span>
-                    <i class="fa fa-bell fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#sign-out">
-                    <i class="fa fa-sign-out-alt fa-2x"></i>
-                </a>
-            </li>
-        </ul>
+                <HStack>
+            <Box boxSize='50px'>
+                <Image src= {'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'} w={'100px'}/>
+            </Box>
+            <Box maxW={'50px'}>
+                carma
+            </Box>
+            </HStack>
+            <Box>
+            cARMA POINTS
+            </Box>
+            <Divider orientation='horizontal' />
+            </VStack>
+            <VStack>
+            <Box>
+            <Text fontSize='lg'> Top rewards</Text>
+            </Box>
+            <Box>
+                <VStack>
+            <Box>
+            <SunIcon color='red.500' /> Sun Reward: 10
+            </Box>
+            <Box>
+            <StarIcon color='red.500' /> Star Reward: 5
+            </Box>
+            <Box>
+            <MoonIcon color='red.500' /> Moon Reward: 5
+            </Box>
+            </VStack>
 
-    </div>
+            </Box>
 
-
-    <div class="sidenav">
-        <div class="profile">
-            <div class="name">
-                ImDezCode
-            </div>
-            <div class="job">
-                Web Developer
-            </div>
-        </div>
-
-        <div class="sidenav-url">
-            <div class="url">
-                <a href="#profile" class="active">Profile</a>
-
-            </div>
-            <div class="url">
-                <a href="#settings">Settings</a>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="main">
-        <h2>IDENTITY</h2>
-        <div class="card">
-            <div class="card-body">
-                <i class="fa fa-pen fa-xs edit"></i>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Name</td>
-                            <td>:</td>
-                            <td>user</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>:</td>
-                            <td>user@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>Address</td>
-                            <td>:</td>
-                            <td>user address</td>
-                        </tr>
-                        <tr>
-                            <td>Hobbies</td>
-                            <td>:</td>
-                            <td>Diving, Reading Book</td>
-                        </tr>
-                        <tr>
-                            <td>Job</td>
-                            <td>:</td>
-                            <td>Web Developer</td>
-                        </tr>
-                        <tr>
-                            <td>Skill</td>
-                            <td>:</td>
-                            <td>PHP, HTML, CSS, Java</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</body> */}
-</Center>
-  )
-}
+            </VStack>
+      </Box>
+      </Stack>
+      </Box>         
+    );
+  }
