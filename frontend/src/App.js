@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Login from './components/Login';
 import SignUp from './components/Signup';
-import { Profile } from './components/Profile';
+import  Profile  from './components/Profile';
 import { HomePage } from './components/HomePage';
 import { ChakraProvider } from "@chakra-ui/react";
 
