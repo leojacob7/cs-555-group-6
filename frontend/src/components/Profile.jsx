@@ -2,7 +2,7 @@ import React from 'react'
 import { Container,Row,Col,Form ,Button} from '@chakra-ui/react';
 import {connect} from '@chakra-ui/react';
 import { Center, Square, Circle } from '@chakra-ui/react'
-import DefaultUserPic from "D:/project/cs-555-group-6/frontend/src/Media/default.jpg";
+
 const axios = require('axios');
 
 
