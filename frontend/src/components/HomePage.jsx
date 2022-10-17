@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Posts } from './Posts'
 import moment from 'moment'
 import { Heading } from '@chakra-ui/react'
+import Navbar from './navbar';
 
 export const HomePage = () => {
   const test_posts = [
@@ -14,6 +15,7 @@ export const HomePage = () => {
   const [posts, setPosts] = useState([...test_posts])
   return (
     <div>
+      <Navbar/>
       <Heading as='h1' size='2xl' my='5'>Home</Heading>
       <Posts posts={posts} />
     </div>
