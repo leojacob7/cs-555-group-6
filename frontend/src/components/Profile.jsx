@@ -14,16 +14,20 @@ import {
     Stack,
     useColorModeValue,
   } from '@chakra-ui/react';
+import Navbar from './navbar';
 
 const axios = require('axios');
 
 
 export default function Profile() {
     return (
+        
         <Box maxW='2900px' py={'50px'} px={'270px'}>
+            <Navbar></Navbar>
         <Stack spacing='24px' direction={'row'} >
         <Box 
           maxW={'270px'}
+          maxH={'500px'}
           w={'280px'}
           bg={useColorModeValue('white', 'gray.800')}
           boxShadow={'2xl'}
@@ -49,7 +53,7 @@ export default function Profile() {
               }}
             />
           </Flex>
-              
+        
 
           <Box p={6}>
             <Stack spacing={0} align={'center'} mb={5}>
@@ -88,15 +92,31 @@ export default function Profile() {
             </Button>
           </Box>
         </Box>
-        <Box p={10} maxW={'800px'} maxH={'120px'}
+        <VStack w ={'800px'}>
+        <Box p={10} maxW={'800px'} maxH={'2000px'}
           w={'full'}
           bg={useColorModeValue('white', 'gray.800')}
           boxShadow={'2xl'}
           rounded={'md'}
           overflow={'hidden'}>
-        User describe
+                    <Box>
+                    User describe
+                    </Box>
       </Box>
-      <Box p={10} maxW={'270px'}
+
+      <Box p={10} maxW={'800px'} maxH={'2000px'}
+          w={'full'}
+          bg={useColorModeValue('white', 'gray.800')}
+          boxShadow={'2xl'}
+          rounded={'md'}
+          overflow={'hidden'}>
+                    <Box>
+                    user posts
+                    </Box>
+                    </Box>
+
+      </VStack>
+      <Box p={10} maxW={'270px'} maxH={'420px'}
           w={'full'}
           bg={useColorModeValue('white', 'gray.800')}
           boxShadow={'2xl'}
