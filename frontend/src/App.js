@@ -7,7 +7,6 @@ function App() {
 		<ChakraProvider>
 			<Login />
 		</ChakraProvider>
-		// </div>
 	);
 }
 
