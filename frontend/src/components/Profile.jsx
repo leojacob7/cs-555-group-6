@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container,Row,Col,Form ,Button} from '@chakra-ui/react';
 import {connect} from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react'
 import { Center, Square, Circle } from '@chakra-ui/react'
 import DefaultUserPic from "D:/project/cs-555-group-6/frontend/src/Media/default.jpg";
 const axios = require('axios');
@@ -8,8 +9,32 @@ const axios = require('axios');
 
 export const Profile = () => {
   return (  
-<Center bg='cyan'  h='1000px' color='white'>
-<body>
+<Center bg='cyan' h='1000px' color='white'>
+<Grid
+  templateAreas={`"header header"
+                  "nav main"
+                  "nav footer"`}
+  gridTemplateRows={'50px 1fr 30px'}
+  gridTemplateColumns={'150px 1fr'}
+  h='200px'
+  gap='1'
+  color='blackAlpha.700'
+  fontWeight='bold'
+>
+  <GridItem pl='2' bg='orange.300' area={'header'}>
+    Header
+  </GridItem>
+  <GridItem pl='2' bg='pink.300' area={'nav'}>
+    Nav
+  </GridItem>
+  <GridItem pl='2' bg='green.300' area={'main'}>
+    Main
+  </GridItem>
+  <GridItem pl='2' bg='blue.300' area={'footer'}>
+    Footer
+  </GridItem>
+</Grid>
+{/* <body>
     <div class="navbar-top">
         <div class="title">
             <h1>Profile</h1>
@@ -103,7 +128,7 @@ export const Profile = () => {
             </div>
         </div>
     </div>
-</body>
+</body> */}
 </Center>
   )
 }
