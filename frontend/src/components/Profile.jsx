@@ -1,31 +1,37 @@
-import React from 'react'
-import { Container,Row,Col,Form ,Button, HStack, Divider, VStack} from '@chakra-ui/react';
-import {connect} from '@chakra-ui/react';
-import { Grid, GridItem } from '@chakra-ui/react'
-import { Center, Square, Circle } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import moment from 'moment'
+import { Container, Row, Col, Form, Button, HStack, Divider, VStack } from '@chakra-ui/react';
 import { StarIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
 import {
-    Heading,
-    Avatar,
-    Box,
-    Image,
-    Flex,
-    Text,
-    Stack,
-    useColorModeValue,
-  } from '@chakra-ui/react';
+  Heading,
+  Avatar,
+  Box,
+  Image,
+  Flex,
+  Text,
+  Stack,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import Navbar from './navbar';
+import { Posts } from './Posts';
 
 const axios = require('axios');
 
 
 export default function Profile() {
-    return (
-        
-        <Box maxW='2900px' py={'50px'} px={'270px'}>
-            <Navbar></Navbar>
-        <Stack spacing='24px' direction={'row'} >
-        <Box 
+  const test_posts = [
+    { id: 1, title: "Test post", posted: moment(Date.now()), user: { id: 1, firstName: "John", lastName: "Doe", username: "jdoe" } },
+    { id: 2, title: "What's up?", posted: moment(Date.now()), user: { id: 1, firstName: "John", lastName: "Doe", username: "jdoe" } }
+  ]
+
+  const [posts, setPosts] = useState([...test_posts])
+
+  return (
+
+    <Box maxW='2900px' py={'50px'} px={'270px'}>
+      <Navbar></Navbar>
+      <Stack spacing='24px' direction={'row'} >
+        <Box
           maxW={'270px'}
           maxH={'500px'}
           w={'280px'}
@@ -53,7 +59,7 @@ export default function Profile() {
               }}
             />
           </Flex>
-        
+
 
           <Box p={6}>
             <Stack spacing={0} align={'center'} mb={5}>
@@ -62,7 +68,7 @@ export default function Profile() {
               </Heading>
               <Text color={'gray.500'}>Frontend Developer</Text>
             </Stack>
-  
+
             <Stack direction={'row'} justify={'center'} spacing={6}>
               <Stack spacing={0} align={'center'}>
                 <Text fontWeight={600}>23k</Text>
@@ -77,7 +83,7 @@ export default function Profile() {
                 </Text>
               </Stack>
             </Stack>
-  
+
             <Button
               w={'full'}
               mt={8}
@@ -92,73 +98,71 @@ export default function Profile() {
             </Button>
           </Box>
         </Box>
-        <VStack w ={'800px'}>
-        <Box p={10} maxW={'800px'} maxH={'2000px'}
-          w={'full'}
-          bg={useColorModeValue('white', 'gray.800')}
-          boxShadow={'2xl'}
-          rounded={'md'}
-          overflow={'hidden'}>
-                    <Box>
-                    User describe
-                    </Box>
-      </Box>
-
-      <Box p={10} maxW={'800px'} maxH={'2000px'}
-          w={'full'}
-          bg={useColorModeValue('white', 'gray.800')}
-          boxShadow={'2xl'}
-          rounded={'md'}
-          overflow={'hidden'}>
-                    <Box>
-                    user posts
-                    </Box>
-                    </Box>
-
-      </VStack>
-      <Box p={10} maxW={'270px'} maxH={'420px'}
-          w={'full'}
-          bg={useColorModeValue('white', 'gray.800')}
-          boxShadow={'2xl'}
-          rounded={'md'}
-          overflow={'hidden'}>
-            <VStack spacing={'10'}>
-
-                <HStack>
-            <Box boxSize='50px'>
-                <Image src= {'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'} w={'100px'}/>
+        <VStack w={'800px'}>
+          <Box p={10} maxW={'800px'} maxH={'2000px'}
+            w={'full'}
+            bg={useColorModeValue('white', 'gray.800')}
+            boxShadow={'2xl'}
+            rounded={'md'}
+            overflow={'hidden'}>
+            <Box>
+              User describe
             </Box>
-            <Box maxW={'50px'}>
+          </Box>
+
+          <Box p={10} maxW={'800px'} maxH={'2000px'}
+            w={'full'}
+            bg={useColorModeValue('white', 'gray.800')}
+            boxShadow={'2xl'}
+            rounded={'md'}
+            overflow={'hidden'}>
+            <Posts posts={posts} />
+          </Box>
+
+        </VStack>
+        <Box p={10} maxW={'270px'} maxH={'420px'}
+          w={'full'}
+          bg={useColorModeValue('white', 'gray.800')}
+          boxShadow={'2xl'}
+          rounded={'md'}
+          overflow={'hidden'}>
+          <VStack spacing={'10'}>
+
+            <HStack>
+              <Box boxSize='50px'>
+                <Image src={'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'} w={'100px'} />
+              </Box>
+              <Box maxW={'50px'}>
                 carma
-            </Box>
+              </Box>
             </HStack>
             <Box>
-            cARMA POINTS
+              cARMA POINTS
             </Box>
             <Divider orientation='horizontal' />
-            </VStack>
-            <VStack>
+          </VStack>
+          <VStack>
             <Box>
-            <Text fontSize='lg'> Top rewards</Text>
+              <Text fontSize='lg'> Top rewards</Text>
             </Box>
             <Box>
-                <VStack>
-            <Box>
-            <SunIcon color='red.500' /> Sun Reward: 10
-            </Box>
-            <Box>
-            <StarIcon color='red.500' /> Star Reward: 5
-            </Box>
-            <Box>
-            <MoonIcon color='red.500' /> Moon Reward: 5
-            </Box>
-            </VStack>
+              <VStack>
+                <Box>
+                  <SunIcon color='red.500' /> Sun Reward: 10
+                </Box>
+                <Box>
+                  <StarIcon color='red.500' /> Star Reward: 5
+                </Box>
+                <Box>
+                  <MoonIcon color='red.500' /> Moon Reward: 5
+                </Box>
+              </VStack>
 
             </Box>
 
-            </VStack>
-      </Box>
+          </VStack>
+        </Box>
       </Stack>
-      </Box>         
-    );
-  }
+    </Box>
+  );
+}
