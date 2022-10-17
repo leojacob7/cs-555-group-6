@@ -1,13 +1,14 @@
 import React from 'react'
 import { Container,Row,Col,Form ,Button} from '@chakra-ui/react';
 import {connect} from '@chakra-ui/react';
+import { Center, Square, Circle } from '@chakra-ui/react'
 import DefaultUserPic from "D:/project/cs-555-group-6/frontend/src/Media/default.jpg";
 const axios = require('axios');
 
 
 export const Profile = () => {
-  return (
-
+  return (  
+<Center bg='cyan'  h='1000px' color='white'>
 <body>
     <div class="navbar-top">
         <div class="title">
@@ -40,8 +41,6 @@ export const Profile = () => {
 
     <div class="sidenav">
         <div class="profile">
-            <img src="https://imdezcode.files.wordpress.com/2020/02/imdezcode-logo.png" alt="" width="100" height="100"></img>
-
             <div class="name">
                 ImDezCode
             </div>
@@ -72,17 +71,17 @@ export const Profile = () => {
                         <tr>
                             <td>Name</td>
                             <td>:</td>
-                            <td>ImDezCode</td>
+                            <td>user</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>imdezcode@gmail.com</td>
+                            <td>user@gmail.com</td>
                         </tr>
                         <tr>
                             <td>Address</td>
                             <td>:</td>
-                            <td>Bali, Indonesia</td>
+                            <td>user address</td>
                         </tr>
                         <tr>
                             <td>Hobbies</td>
@@ -103,44 +102,8 @@ export const Profile = () => {
                 </table>
             </div>
         </div>
-
-        <h2>SOCIAL MEDIA</h2>
-        <div class="card">
-            <div class="card-body">
-                <i class="fa fa-pen fa-xs edit"></i>
-                <div class="social-media">
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-invision fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-snapchat fa-stack-1x fa-inverse"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
     </div>
 </body>
+</Center>
   )
 }
