@@ -1,4 +1,5 @@
 const express = require('express');
+const { ConnectionClosedEvent } = require('mongodb');
 const router = express.Router();
 const userData = require('../data/users');
 
@@ -25,6 +26,7 @@ router.route('/login')
 
             if(usrLoginChkResponse === "{authenticated: true}"){
                 request.session.user = {username: userName};
+                
                 response.status(200).send("User Succesfully logged in");
             }
                       

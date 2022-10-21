@@ -1,6 +1,6 @@
-const mongoCollection = require('../config/mongoCollections');
 const bcrypt = require('bcrypt');
-const users = mongoCollection.users;
+const mongoCollections = require('../config/mongoCollections');
+const users = mongoCollections.users;
 const salt = 12;
 
 const errChkIsStr = function errChkIsStr(inputStr){

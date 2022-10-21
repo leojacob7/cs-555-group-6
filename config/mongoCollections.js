@@ -15,5 +15,6 @@ const getCollectionFunction = (collection) => {
   
   /* list of collections : */
   module.exports = {
-    users: getCollectionFunction('users')
+    users: getCollectionFunction('users'),
+    comments: getCollectionFunction('comments')
   };
