@@ -24,7 +24,7 @@ router.route('/login')
             const usrLoginChkResponse = await userData.loginCheck(userName,passwd);
             //console.log("usrLoginChkResponse : "+usrLoginChkResponse);
 
-            		if (usrLoginChkResponse === '{authenticated: true}') {
+		if (usrLoginChkResponse === '{authenticated: true}') {
 			request.session.user = { username: userName };
 			response.status(200).json('User Succesfully logged in');
 		}
