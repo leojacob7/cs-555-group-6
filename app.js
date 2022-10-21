@@ -6,7 +6,8 @@ const cors = require('cors');
 
 const configRoutes = require('./routes');
 const session = require('express-session');
-app.use;
+const bodyParser = require('body-parser');
+
 app.use('/public', static);
 app.use(express.json());
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
@@ -46,7 +47,7 @@ app.use(async (req, res, next) => {
 	next();
 });
 
-configRoutes(app);
+  configRoutes(app);
 
 app.listen(4000, () => {
 	console.log("We've now got a server!");
