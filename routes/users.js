@@ -24,15 +24,15 @@ router.route('/login')
             const usrLoginChkResponse = await userData.loginCheck(userName,passwd);
             //console.log("usrLoginChkResponse : "+usrLoginChkResponse);
 
-            if (usrLoginChkResponse === '{authenticated: true}') {
-                request.session.user = { username: userName };
-                response.status(200).json('User Succesfully logged in');
-            }
-        } catch (e) {
-            response.status(400).json('Error logging in : ' + e);
-            return;
-        }
-    });
+            		if (usrLoginChkResponse === '{authenticated: true}') {
+			request.session.user = { username: userName };
+			response.status(200).json('User Succesfully logged in');
+		}
+	} catch (e) {
+		response.status(400).json('Error logging in : ' + e);
+		return;
+	}
+});
 
 
        router.route('/logout')
