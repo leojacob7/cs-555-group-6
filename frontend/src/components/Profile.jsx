@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
-import { Container, Row, Col, Form, Button, HStack, Divider, VStack } from '@chakra-ui/react';
+import { Container, Row, Col, Form, Button, HStack, Divider, VStack, Input } from '@chakra-ui/react';
 import { StarIcon, SunIcon, MoonIcon } from '@chakra-ui/icons'
 import {
   Heading,
@@ -14,7 +14,6 @@ import {
 } from '@chakra-ui/react';
 import Navbar from './navbar';
 import { Posts } from './Posts';
-import { Textarea } from '@chakra-ui/react'
 import { GiAbstract036 } from "react-icons/gi";
 
 const axios = require('axios');
@@ -100,7 +99,7 @@ export default function Profile() {
             rounded={'md'}
             overflow={'hidden'}>
             <Box>
-            <Textarea placeholder='Write about yourself.' />
+              <Input variant='filled' placeholder= 'About Yourself' />
             </Box>
           </Box>
 
