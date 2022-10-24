@@ -1,12 +1,15 @@
-import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
+import { Avatar, Box, Button, HStack, Text, Textarea, VStack } from "@chakra-ui/react";
 import React from "react";
-import moment from 'moment'
-import { Link } from 'react-router-dom'
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+import { Input } from '@chakra-ui/react'
+
 
 const Post = ({ post }) => {
   return (
     <Box borderWidth='1px' borderRadius='lg' px={4} py={3} boxShadow={'md'}>
-      <HStack spacing={4}>
+      <VStack align='flex-start' alignItems='flex-start'>
+      <HStack>
         <Avatar
           size={'md'}
           src={
@@ -27,6 +30,13 @@ const Post = ({ post }) => {
       <Box py={4}>
         <Text>{post.title}</Text>
       </Box>
+      <Box>
+      <HStack>
+      <Input variant='filled' placeholder='Add a comment' />
+      <Button colorScheme='blue'>Send</Button>
+      </HStack>
+      </Box>
+      </VStack>
     </Box>
   );
 };
