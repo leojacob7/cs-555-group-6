@@ -14,6 +14,8 @@ import {
 } from '@chakra-ui/react';
 import Navbar from './navbar';
 import { Posts } from './Posts';
+import { Textarea } from '@chakra-ui/react'
+import { GiAbstract036 } from "react-icons/gi";
 
 const axios = require('axios');
 
@@ -28,7 +30,7 @@ export default function Profile() {
 
   return (
 
-    <Box maxW='2900px' py={'50px'} px={'270px'}>
+    <Box  py={'50px'} px={'200px'}>
       <Navbar></Navbar>
       <Stack spacing='24px' direction={'row'} >
         <Box
@@ -69,20 +71,12 @@ export default function Profile() {
               <Text color={'gray.500'}>Frontend Developer</Text>
             </Stack>
 
-            <Stack direction={'row'} justify={'center'} spacing={6}>
               <Stack spacing={0} align={'center'}>
                 <Text fontWeight={600}>23k</Text>
                 <Text fontSize={'sm'} color={'gray.500'}>
                   Followers
                 </Text>
               </Stack>
-              <Stack spacing={0} align={'center'}>
-                <Text fontWeight={600}>23k</Text>
-                <Text fontSize={'sm'} color={'gray.500'}>
-                  Followers
-                </Text>
-              </Stack>
-            </Stack>
 
             <Button
               w={'full'}
@@ -106,7 +100,7 @@ export default function Profile() {
             rounded={'md'}
             overflow={'hidden'}>
             <Box>
-              User describe
+            <Textarea placeholder='Write about yourself.' />
             </Box>
           </Box>
 
@@ -130,7 +124,7 @@ export default function Profile() {
 
             <HStack>
               <Box boxSize='50px'>
-                <Image src={'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'} w={'100px'} />
+                <GiAbstract036/>
               </Box>
               <Box maxW={'50px'}>
                 carma
