@@ -1,8 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Posts } from './Posts';
 import moment from 'moment';
-// import { useColorModeValue } from '@chakra-ui/react';
+
 import Avatar from '@mui/joy/Avatar';
 import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
@@ -10,7 +9,7 @@ import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/joy/Divider';
-import Navbar from './navbar';
+import Navbar from './Navbar';
 
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -18,7 +17,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 // import Profile from './Profile';
 
-export const HomePage = () => {
+const HomePage = () => {
 	const test_posts = [
 		{
 			id: 1,
@@ -72,51 +71,59 @@ export const HomePage = () => {
 			<Navbar />
 			<Stack
 				direction='row'
+				spacing={10}
 				alignItems='flex-start'
-				justifyContent='space-between'>
-				<Sheet
-					sx={{ padding: 5 }}
-					// bg={useColorModeValue('white', 'gray.800')}
-				>
-					<Stack
-						direction='column'
-						alignItems='flex-start'
-						justifyContent='flex-start'
-						spacing={2}>
-						<Button
-							startDecorator={<WhatshotIcon />}
-							color='primary'
-							size='sm'
-							variant='plain'>
-							Hot Posts
-						</Button>
+				justifyContent='center'>
+				<Stack
+					direction='column'
+					alignItems='flex-start'
+					width={'50%'}
+					padding={2}>
+					<Typography level='display2' component='h1'>
+						Home
+					</Typography>
+					<Sheet sx={{ marginY: 3, width: '100%' }}>
+						<Stack
+							direction='row'
+							alignItems='flex-start'
+							justifyContent='flex-start'
+							spacing={2}>
+							<Button
+								startDecorator={<WhatshotIcon />}
+								color='primary'
+								size='sm'
+								variant='soft'>
+								Hot Posts
+							</Button>
 
-						<Button
-							startDecorator={<AutoAwesomeIcon />}
-							color='primary'
-							size='sm'
-							variant='plain'>
-							New
-						</Button>
+							<Button
+								startDecorator={<AutoAwesomeIcon />}
+								color='primary'
+								size='sm'
+								variant='soft'>
+								New
+							</Button>
 
-						<Button
-							startDecorator={<TrendingUpIcon />}
-							color='primary'
-							size='sm'
-							variant='plain'>
-							Trending
-						</Button>
-					</Stack>
-				</Sheet>
+							<Button
+								startDecorator={<TrendingUpIcon />}
+								color='primary'
+								size='sm'
+								variant='soft'>
+								Trending
+							</Button>
+						</Stack>
+					</Sheet>
 
-				<Box sx={{ width: '70%' }} py={5}>
-					<Posts posts={posts} />
-				</Box>
+					<Box sx={{ width: '100%' }} py={2}>
+						<Posts posts={posts} />
+					</Box>
+				</Stack>
 
 				<Sheet sx={{ padding: 5 }}>
 					<Stack
 						direction='column'
 						alignItems='flex-start'
+						maxHeight='100vh'
 						spacing={3}>
 						<Box>
 							<Typography level='h5'>Top Accounts</Typography>
@@ -124,9 +131,9 @@ export const HomePage = () => {
 						</Box>
 
 						<Stack spacing={1}>
-							<Box justify={'center'}>
+							<Stack alignItems='center' justifyContent='center'>
 								<Avatar
-									size={'md'}
+									sx={{ height: '75px', width: '75px' }}
 									src={
 										'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
 									}
@@ -135,7 +142,7 @@ export const HomePage = () => {
 										border: '2px solid white',
 									}}
 								/>
-							</Box>
+							</Stack>
 
 							<Stack spacing={2}>
 								<Stack align='flex-start'>
@@ -160,3 +167,5 @@ export const HomePage = () => {
 		</Box>
 	);
 };
+
+export default HomePage;

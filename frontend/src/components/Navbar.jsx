@@ -13,23 +13,7 @@ import {
 } from '@mui/joy';
 import { Stack } from '@mui/material';
 // import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import AddNewPost from './add-new-post';
-
-// const NavLink = ({ children }: { children: ReactNode }) => (
-// 	<Link
-// 		px={2}
-// 		py={1}
-// 		rounded={'md'}
-// 		_hover={{
-// 			textDecoration: 'none',
-// 			bg: useColorModeValue('gray.200', 'gray.700'),
-// 		}}
-// 		href={'#'}>
-// 		{children}
-// 	</Link>
-// );
-
-// bg={useColorModeValue('gray.100', 'gray.900')}
+import AddNewPost from './AddNewPost';
 
 export default function Navbar() {
 	// for menu list

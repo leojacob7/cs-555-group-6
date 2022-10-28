@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
@@ -7,7 +7,7 @@ import Textarea from '@mui/joy/Textarea';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import ModalClose from '@mui/joy/ModalClose';
-import { Box, Typography } from '@mui/joy';
+import { Box, Divider, Typography } from '@mui/joy';
 
 const AddNewPost = () => {
 	const [open, setOpen] = useState(false);
@@ -35,19 +35,25 @@ const AddNewPost = () => {
 					<Stack direction='column' spacing={4}>
 						<Stack
 							direction='row'
-							alignItems='flex-end'
+							alignItems='flex-start'
 							justifyContent='flex-start'>
-							<Typography id='modal-title' level='h3'>
+							<Typography
+								id='modal-title'
+								level='h4'
+								component='h5'
+								p={0}>
 								Add new post
 							</Typography>
 							<ModalClose />
 						</Stack>
 
+						<Divider />
 						<Box>
 							<FormControl id='post-title'>
 								<FormLabel required>Post title</FormLabel>
 								<Textarea
 									value={title}
+									minRows={3}
 									required
 									onChange={(e) => setTitle(e.target.value)}
 								/>
