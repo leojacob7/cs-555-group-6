@@ -1,10 +1,9 @@
-const cors = require('cors')
+const cors = require('cors');
 
 const express = require('express');
 const app = express();
 const static = express.static(__dirname + '/public');
 
-const cors = require('cors');
 
 const configRoutes = require('./routes');
 const session = require('express-session');
@@ -49,7 +48,7 @@ app.use(async (req, res, next) => {
 	next();
 });
 
-  configRoutes(app);
+configRoutes(app);
 
 app.listen(4000, () => {
 	console.log("We've now got a server!");
