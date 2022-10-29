@@ -6,12 +6,13 @@ const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 let { ObjectId } = require('mongodb');
 
-router.route('/addlike/:cmntId')
+router.route('/addlike/')
     .post(async (request,response) => {
            
         try{   
             
-            let cmntId = request.params.cmntId;
+            //let cmntId = request.params.cmntId;
+            let cmntId = request.body.cmntId;
 
             if (!cmntId) {
                 throw "commentId parameter has to be provided";
@@ -22,7 +23,7 @@ router.route('/addlike/:cmntId')
               cmntId = cmntId.trim();
           
               if (!ObjectId.isValid(cmntId)) {
-                throw "commentId is not a valid ObjectId";
+                throw "commentId : "+cmntId+" is not a valid ObjectId";
               } 
 
               if (request.session.user) {
@@ -49,13 +50,13 @@ router.route('/addlike/:cmntId')
                   }
 
                 const newLike = await cmntData.addLikeToComments(cmntId, usrId);
-                response.status(200).send("User Liked sucessfully");
+                response.status(200).send({status:"User Liked sucessfully"});
 
                 //let url = ''
                 //res.redirect(url);
 
             } else {
-                response.status(400).send("User must be looged in to like : ");
+                response.status(400).send("User must be logged in to like : ");
 
                 return;
 

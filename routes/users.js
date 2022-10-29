@@ -20,7 +20,7 @@ router.route('/login').post(async (request, response) => {
 
 		if (usrLoginChkResponse === '{authenticated: true}') {
 			request.session.user = { username: userName };
-			response.status(200).json('User Succesfully logged in');
+			response.status(200).json({ status: 'User Succesfully logged in' });
 		}
 	} catch (e) {
 		response.status(400).json('Error logging in : ' + e);
