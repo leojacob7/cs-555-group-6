@@ -3,10 +3,13 @@ import { Stack } from '@mui/material';
 import React from 'react';
 import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
+import Comments from "./Comments";
+import { Divider } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
 	return (
+		
 		<Box borderWidth='1px' borderRadius='lg' px={4} py={3} boxShadow={'md'}>
 			<Stack alignItems='flex-start' justifyContent='center'>
 				<Stack>
@@ -38,16 +41,12 @@ const Post = ({ post }) => {
 					</Typography>
 				</Box>
 				<Box sx={{ width: '100%' }}>
-					<Stack direction='row' spacing={2}>
-						<TextField
-							fullWidth
-							variant='soft'
-							placeholder='Add a comment'
-						/>
-						<Button variant='soft' color='primary'>
-							<SendIcon />
-						</Button>
-					</Stack>
+				<Divider />
+				<Comments
+        			// commentsUrl="http://localhost:3004/comments"
+        			// currentUserId="1"
+      			/>
+
 				</Box>
 			</Stack>
 		</Box>
