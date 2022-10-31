@@ -13,6 +13,9 @@ import { Posts } from './Posts';
 import { GiAbstract036 } from 'react-icons/gi';
 import { TextField } from '@mui/material';
 import Image from 'material-ui-image'
+import post from './Post'
+import { spacing } from '@mui/system';
+
 
 const Profile = () =>  {
 	const test_posts = [
@@ -61,48 +64,71 @@ const Profile = () =>  {
 			},
 		},
 	];
+
+
 	const [posts, setPosts] = useState([...test_posts]);
 	return (
-		<Box py={'50px'} px={'200px'}>
-			{/* <Navbar></Navbar> */}
+		<Box>
+			 <Navbar></Navbar>
 			<Stack direction='row'
-				spacing={10}
+				spacing={1}
 				alignItems='flex-start'
-				justifyContent='center'>
+				justifyContent='center'
+				padding={2}>
+
 				<Stack direction='column'
-					alignItems='flex-start'
+					alignItems='center'
 					justifyContent='center'
-					width={'50%'}
+					width={'10%%'}
 					padding={2}>
 					<Box borderWidth='1px' borderRadius='lg' px={4} py={3} boxShadow={'md'}>
-					<Box borderWidth='1px' borderRadius='lg'
-        				component="img"
-        				sx={{
-          					height: 150,
-          					width: 250,
-        					}}
-        				alt="BackgroundImage"
-        				src='https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
-      				/>
-						<Stack alignItems='center' justify='center' mt={-10} >
-							<Avatar
-								src={
-									'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-								}
-								sx={{ width: 120, height: 120 }}
-								alt={'Author'}
-							/>
+						<Box borderWidth='1px' borderRadius='lg'
+							component="img"
+							sx={{
+								height: 150,
+								width: 250,
+								}}
+							alt="BackgroundImage"
+							src='https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
+						/>
 							<Stack alignItems='center' justify='center' mt={-10} >
-								<Box> John Doe</Box>
-								<Divider></Divider>
+								<Avatar
+									src={
+										'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+									}
+									sx={{ width: 120, height: 120 }}
+									alt={'Author'}
+								/>
+								<Stack alignItems='center' justify='center' spacing={1} divider={<Divider orientation="horizontal" flexItem /> } >
+									<Typography level='h2' component='strong'>
+										John Doe
+									</Typography>
+									<Box> 
+										Frontend Developer
+									</Box>
+								
+								</Stack>
+
 							</Stack>
-						</Stack>
 						
 					</Box>
 				</Stack>
-				<Box sx={{ width: '100%' }} py={2}>
-						<Posts posts={posts} />
+				<Stack padding={1} sx={{ width: '50%' }}>
+					<Box borderWidth='1px' borderRadius='lg' boxShadow={'md'} px={4} py={2} alignItems='center' sy={{width:'101'}} >
+									Space for desc
+					</Box>
+					<Box sx={{ width: '100%' }} py={2}>
+							<Posts posts={posts} />
+					</Box>
+				</Stack>
+				
+				<Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+					<Typography level='h2' component='strong'>
+						Karma : 2,199
+					</Typography>
+					<Divider orientation="horizontal" flexItem />
 				</Box>
+				
 			</Stack>
 			{/* <Stack spacing='24px' >
 				<Box
