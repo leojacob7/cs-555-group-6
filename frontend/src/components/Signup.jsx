@@ -7,38 +7,52 @@ import Button from '@mui/joy/Button'
 import Divider from '@mui/joy/Divider'
 import TextField from '@mui/joy/TextField'
 import Typography from '@mui/joy/Typography'
-
+import CircularProgress from '@mui/material/CircularProgress'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import BadgeIcon from '@mui/icons-material/Badge'
 import KeyIcon from '@mui/icons-material/Key'
 import ErrorIcon from '@mui/icons-material/Error'
-import { signupUser } from '../utils/apiCalls'
+import { BE_URL, signupUser, useAxios } from '../utils/apiCalls'
+import axios from 'axios'
+import { Navigate } from 'react-router-dom'
+import { Box } from '@mui/material'
 
 const SignUp = () => {
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState(null)
+  //   const [error, setError] = useState(null)
   const [isLoading, setLoading] = useState(false)
+  const [data, error, setError, loading, operation] = useAxios()
 
   const handleSignUp = async e => {
     e.preventDefault()
-    if (!username || !password || !confirmPassword) {
+    if ((!email || !password || !confirmPassword || !firstName, !lastName)) {
+      console.log({ email, password, firstName, lastName, confirmPassword })
       return setError('Fields are missing Please enter all the fields')
     }
     if (password !== confirmPassword) {
       return setError('Passwords donot match')
     }
 
-    console.log({ username, password, confirmPassword })
-    // TODO: make an axios request to perform actual api calls
-    const res = await signupUser(username, password)
-    if (res) {
-      setError(res)
-      setLoading(false)
+    console.log({ email, password, confirmPassword })
+    const payload = {
+      email,
+      firstName,
+      lastName,
+      password
     }
+    console.log(payload)
+    operation('register', payload)
+  }
+
+  if (data?.user?.email) {
+    ;<Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
+    return <Navigate to='/' replace={true} />
   }
 
   return (
@@ -67,8 +81,8 @@ const SignUp = () => {
                 required
                 variant='outlined'
                 color={error ? 'danger' : 'neutral'}
-                value={username}
-                onChange={e => setUsername(e.target.value)}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
               <TextField
                 id='firstName'
@@ -125,7 +139,7 @@ const SignUp = () => {
                 type='submit'
                 variant='solid'
                 loading={isLoading}
-                disabled={!username || !password}
+                disabled={!email || !password}
               >
                 Sign Up
               </Button>
