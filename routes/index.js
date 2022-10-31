@@ -1,11 +1,11 @@
 const userRoute = require('./users');
 const commentRoute = require('./comments');
-const signup = require('./signup');
+const postRoute = require('./post');
 
 const constructorMethod = (app) => {
 	app.use('/', userRoute);
-	app.use('/signup', signup);
-	app.use('/comment', commentRoute);
+	app.use('/', commentRoute);
+	app.use('/posts', postRoute);
 	app.use('*', (req, res) => {
 		res.status(404).json({ error: 'Resource Not found' });
 	});
