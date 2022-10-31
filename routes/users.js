@@ -31,22 +31,22 @@ const User = require('../models/user');
 // });
 
 router.post('/login', async (req, res) => {
-	const email = req.body.email;
+	const username = req.body.username;
 	const password = req.body.password;
 
 	try {
-		if (!email || !password) {
+		if (!password || !username) {
 			return res.status(400).send({
-				error: 'Email and Password (both) have to be provided',
+				error: 'Username and Password (both) have to be provided',
 			});
 		}
 
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ username });
 
 		if (!user) {
 			return res
 				.status(404)
-				.send({ error: 'Email or Password is invalid' });
+				.send({ error: 'Username or Password is invalid' });
 		}
 
 		// check password
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
 		if (!validPassword) {
 			return res
 				.status(403)
-				.send({ error: 'Email or Password is invalid' });
+				.send({ error: 'Username or Password is invalid' });
 		}
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -71,18 +71,19 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
 	const email = req.body.email;
+	const username = req.body.username;
 	const password = req.body.password;
 	const firstName = req.body.firstName;
 	const lastName = req.body.lastName;
 
 	try {
-		if (!email || !password || !firstName || !lastName) {
+		if (!email || !password || !username || !firstName || !lastName) {
 			return res.status(400).send({
-				error: 'Email, Password, First Name and Last Name (all) have to be provided',
+				error: 'Email, Username, Password, First Name and Last Name (all) have to be provided',
 			});
 		}
 
-		const userExists = await User.findOne({ email });
+		const userExists = await User.findOne({ username });
 		if (userExists) {
 			return res.status(403).send({ error: 'This user already exists!' });
 		}
@@ -91,6 +92,7 @@ router.post('/register', async (req, res) => {
 
 		const newUser = new User({
 			email,
+			username,
 			password: hashedPassword,
 			firstName,
 			lastName,

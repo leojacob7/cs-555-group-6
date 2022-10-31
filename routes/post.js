@@ -133,6 +133,7 @@ router.post('/comment', verifyToken, async (req, res) => {
 				commentTitle,
 				isReply,
 				parentComment: parentCommentId,
+				hearts: [],
 				replies: [],
 			});
 			const comment = await newComment.save();
@@ -155,11 +156,9 @@ router.post('/comment', verifyToken, async (req, res) => {
 						$addToSet: { replies: comment._id },
 					});
 				} else {
-					return res
-						.status(400)
-						.send({
-							error: 'ParentCommentID is not a valid ObjectId',
-						});
+					return res.status(400).send({
+						error: 'ParentCommentID is not a valid ObjectId',
+					});
 				}
 			}
 
