@@ -14,7 +14,7 @@ import KeyIcon from '@mui/icons-material/Key'
 import ErrorIcon from '@mui/icons-material/Error'
 
 import { loginUser, useAxios } from '../utils/apiCalls'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -99,7 +99,10 @@ const Login = () => {
 
           <Stack spacing={1}>
             <Typography level='body2'>Forgot password?</Typography>
-            <Typography level='body2'>New to us? Sign Up</Typography>
+            <Typography level='body2'>
+              New to us?
+              <Link to='/register'> Sign Up </Link>
+            </Typography>
           </Stack>
         </Stack>
       </Card>

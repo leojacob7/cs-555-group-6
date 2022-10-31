@@ -14,7 +14,7 @@ import KeyIcon from '@mui/icons-material/Key'
 import ErrorIcon from '@mui/icons-material/Error'
 import { BE_URL, signupUser, useAxios } from '../utils/apiCalls'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Box } from '@mui/material'
 
 const SignUp = () => {
@@ -52,7 +52,7 @@ const SignUp = () => {
     ;<Box sx={{ display: 'flex' }}>
       <CircularProgress />
     </Box>
-    return <Navigate to='/' replace={true} />
+    return <Navigate to='/login' replace={true} />
   }
 
   return (
@@ -148,7 +148,7 @@ const SignUp = () => {
 
           <Stack>
             <Typography level='body2'>
-              Already have an account? Login
+              Already have an account? <Link to='/login'>Login</Link>
             </Typography>
           </Stack>
         </Stack>
