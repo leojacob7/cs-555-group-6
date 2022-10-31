@@ -69,33 +69,36 @@ const Profile = () =>  {
 				spacing={10}
 				alignItems='flex-start'
 				justifyContent='center'>
-				<Stack
-					direction='column'
+				<Stack direction='column'
 					alignItems='flex-start'
 					justifyContent='center'
 					width={'50%'}
 					padding={2}>
 					<Box borderWidth='1px' borderRadius='lg' px={4} py={3} boxShadow={'md'}>
-					<Box
+					<Box borderWidth='1px' borderRadius='lg'
         				component="img"
         				sx={{
-          					height: 233,
-          					width: 350,
+          					height: 150,
+          					width: 250,
         					}}
         				alt="BackgroundImage"
         				src='https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
       				/>
+						<Stack alignItems='center' justify='center' mt={-10} >
+							<Avatar
+								src={
+									'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+								}
+								sx={{ width: 120, height: 120 }}
+								alt={'Author'}
+							/>
+							<Stack alignItems='center' justify='center' mt={-10} >
+								<Box> John Doe</Box>
+								<Divider></Divider>
+							</Stack>
+						</Stack>
+						
 					</Box>
-					<Stack alignItems='flex-start' justify='center' mt={-17} ml={14}>
-						<Avatar
-							
-							src={
-								'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-							}
-							sx={{ width: 200, height: 200 }}
-							alt={'Author'}
-						/>
-					</Stack>
 				</Stack>
 				<Box sx={{ width: '100%' }} py={2}>
 						<Posts posts={posts} />
