@@ -19,31 +19,6 @@ mongoose.connect('mongodb://localhost:27017/cs-555-group-6', () =>
 	console.log('Connected to db!')
 );
 
-app.use(async (req, res, next) => {
-	if (req.session?.user) {
-		console.log(
-			'[' +
-				new Date().toUTCString() +
-				']: ' +
-				req.method +
-				' ' +
-				req.originalUrl +
-				' (Authenticated User)'
-		);
-	} else {
-		console.log(
-			'[' +
-				new Date().toUTCString() +
-				']: ' +
-				req.method +
-				' ' +
-				req.originalUrl +
-				' (Non-Authenticated User)'
-		);
-	}
-	next();
-});
-
 configRoutes(app);
 
 app.listen(4000, () => {
