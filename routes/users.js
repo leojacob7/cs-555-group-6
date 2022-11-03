@@ -56,13 +56,14 @@ router.post('/login', async (req, res) => {
 				.status(403)
 				.send({ error: 'Username or Password is invalid' });
 		}
-
+		console.log('>>>', process.env.JWT_SECRET);
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
 			expiresIn: 60 * 60 * 24 * 365, // 1 year
 		});
 
 		return res.send({ user, token });
 	} catch (err) {
+		console.log({ err });
 		return res
 			.status(500)
 			.send({ error: 'An unexpected error occurred', details: err });
@@ -88,6 +89,17 @@ router.post('/register', async (req, res) => {
 			return res.status(403).send({ error: 'This user already exists!' });
 		}
 
+		if (password.length < 5)
+			return res
+				.status(403)
+				.send({ error: 'Password must be at least 5 characters' });
+
+		if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email)) {
+			return res
+				.status(403)
+				.send({ error: 'Please enter a valid email address' });
+		}
+
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		const newUser = new User({
@@ -101,6 +113,7 @@ router.post('/register', async (req, res) => {
 
 		return res.send({ user: newUser });
 	} catch (err) {
+		console.log({ error });
 		return res
 			.status(500)
 			.send({ error: 'An unexpected error occurred', details: err });

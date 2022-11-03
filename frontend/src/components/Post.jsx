@@ -1,13 +1,20 @@
 import { Avatar, Box, Button, Typography, TextField } from '@mui/joy';
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import React from 'react';
 import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import Comments from "./Comments";
-import { Divider } from '@material-ui/core';
 // import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
+  const [likedPost, setLikedPost] = React.useState(post.currentUserLike)
+  const likePost = e => {
+    setLikedPost(!likedPost)
+    // TODO: make a BE call to like or unlike a post
+  }
+  
 	return (
 		
 		<Box borderWidth='1px' borderRadius='lg' px={4} py={3} boxShadow={'md'}>
@@ -40,17 +47,33 @@ const Post = ({ post }) => {
 						{post.title}
 					</Typography>
 				</Box>
-				<Box sx={{ width: '100%' }}>
-				<Divider />
-				<Comments
-        			// commentsUrl="http://localhost:3004/comments"
-        			// currentUserId="1"
-      			/>
-
-				</Box>
+				<Divider sx={{ width: '100%', marginY: '2%' }} />
+        <Stack direction='row' spacing={2}>
+          <Button
+            sx={{ marginBottom: '10%' }}
+            variant='soft'
+            color='primary'
+            onClick={likePost}
+          >
+            {likedPost ? (
+              <ThumbUpIcon color='secondary' />
+            ) : (
+              <ThumbUpOutlinedIcon color='secondary' />
+            )}
+          </Button>
+        </Stack>
+        <Divider sx={{ width: '100%' }} />
+        <Box sx={{ width: '100%', marginY: '2%' }}>
+          <Stack direction='row' spacing={2}>
+            <TextField fullWidth variant='soft' placeholder='Add a comment' />
+            <Button variant='soft'>
+              <SendIcon color='secondary' />
+            </Button>
+          </Stack>
+        </Box>
 			</Stack>
 		</Box>
 	);
 };
 
-export default Post;
+export default Post
