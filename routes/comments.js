@@ -5,6 +5,71 @@ const cmntData = require('../data/comments');
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 let { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
+const Post = require('../models/post');
+const User = require('../models/user');
+const Comment = require('../models/comment');
+const verifyToken = require('../utils/verifyToken');
+
+router.post('/', async (req, res) => {
+	const commentId = req.body.comment;
+
+	if (!commentId) {
+		return res.status(400).send({
+			error: 'CommentID must be provided!',
+		});
+	}
+
+	try {
+		if (ObjectId.isValid(commentId)) {
+			const comment = await Comment.findById(commentId).populate([
+				'user',
+				'post',
+				'replies',
+				'hearts',
+			]);
+
+			return res.send({ comment });
+		} else {
+			return res
+				.status(400)
+				.send({ error: 'UserID is not a valid ObjectId' });
+		}
+	} catch (err) {
+		return res
+			.status(500)
+			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
+
+router.post('/replies', async (req, res) => {
+	const commentId = req.body.comment;
+
+	if (!commentId) {
+		return res.status(400).send({
+			error: 'CommentID must be provided!',
+		});
+	}
+
+	try {
+		if (ObjectId.isValid(commentId)) {
+			const comment = await Comment.findById(commentId).populate({
+				path: 'replies',
+				populate: { path: 'user', model: 'User' },
+			});
+
+			return res.send({ replies: comment.replies });
+		} else {
+			return res
+				.status(400)
+				.send({ error: 'UserID is not a valid ObjectId' });
+		}
+	} catch (err) {
+		return res
+			.status(500)
+			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
 
 router.route('/addlike/')
     .post(async (request,response) => {
@@ -130,4 +195,3 @@ router.route('/addlike/')
        });
 
        module.exports = router;
-
