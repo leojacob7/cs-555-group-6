@@ -40,32 +40,6 @@ const userPasswordValidationChk = function userPasswordValidationChk(passwd) {
 	}
 };
 
-const addUser = async function addUser(data) {
-	const userCollection = await users();
-	if (await userCollection.findOne({ email_id: data.email_id })) {
-		return {flag: false, type: 'exist'}
-	} 
-
-	var hash = await bcrypt.hashSync(data.password, salt);
-	let newUser = {
-		username: data.username,
-		email_id: data.email_id,
-		password: hash,
-		account_type: data.account_type,
-		preference: "",
-		contact_info: "",
-		preferred_location: "",
-		profile_picture: ""
-	};
-
-	const newInsertInformation = await userCollection.insertOne(newUser);
-	if (newInsertInformation.insertedCount === 0) {
-		return {flag: false, type: 'failure'}
-	};
-	
-	return {flag: true, inserted_id:newInsertInformation.insertedId};
-};
-
 module.exports = {
 	async loginCheck(userName, password) {
 		if (arguments.length < 2) {
@@ -94,5 +68,4 @@ module.exports = {
 	},
 	userValidationChk,
 	userPasswordValidationChk,
-	addUser,
 };

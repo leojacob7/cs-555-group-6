@@ -1,123 +1,57 @@
 const express = require('express');
 const { ConnectionClosedEvent } = require('mongodb');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
 const userData = require('../data/users');
-const User = require('../models/user');
 
-// router.route('/login').post(async (request, response) => {
-// 	const userName = request.body.username;
-// 	const passwd = request.body.password;
-
-// 	try {
-// 		if (!userName || !passwd) {
-// 			throw 'Username, Password (both) have to be provided';
-// 		}
-
-// 		userData.userValidationChk(userName);
-// 		userData.userPasswordValidationChk(passwd);
-
-// 		const usrLoginChkResponse = await userData.loginCheck(userName, passwd);
-
-// 		if (usrLoginChkResponse === '{authenticated: true}') {
-// 			request.session.user = { username: userName };
-// 			response.status(200).json('User Succesfully logged in');
-// 		}
-// 	} catch (e) {
-// 		response.status(400).json('Error logging in : ' + e);
-// 		return;
-// 	}
-// });
-
-router.post('/login', async (req, res) => {
-	const username = req.body.username;
-	const password = req.body.password;
+router.route('/login').post(async (request, response) => {
+	const userName = request.body.username;
+	const passwd = request.body.password;
 
 	try {
-		if (!password || !username) {
-			return res.status(400).send({
-				error: 'Username and Password (both) have to be provided',
-			});
+		if (!userName || !passwd) {
+			throw 'Username, Password (both) have to be provided';
 		}
 
-		const user = await User.findOne({ username });
+		userData.userValidationChk(userName);
+		userData.userPasswordValidationChk(passwd);
 
-		if (!user) {
-			return res
-				.status(404)
-				.send({ error: 'Username or Password is invalid' });
-		}
+		const usrLoginChkResponse = await userData.loginCheck(userName, passwd);
+		//console.log("usrLoginChkResponse : "+usrLoginChkResponse);
 
-		// check password
-		const validPassword = await bcrypt.compare(password, user.password);
-		if (!validPassword) {
-			return res
-				.status(403)
-				.send({ error: 'Username or Password is invalid' });
-		}
-		console.log('>>>', process.env.JWT_SECRET);
-		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-			expiresIn: 60 * 60 * 24 * 365, // 1 year
-		});
+            if (usrLoginChkResponse === '{authenticated: true}') {
+                request.session.user = { username: userName };
+                response.status(200).json({status:'User Succesfully logged in'});
+            }
+        } catch (e) {
+            response.status(400).json('Error logging in : ' + e);
+            return;
+        }
+    });
 
-		return res.send({ user, token });
-	} catch (err) {
-		console.log({ err });
-		return res
-			.status(500)
-			.send({ error: 'An unexpected error occurred', details: err });
+router.route('/logout').get(async (request, response) => {
+	if (request.session.user) {
+		request.session.destroy();
+		response.status(200).json('User Succesfully logged out');
+	} else {
+		response.status(400).json('User in not logged in');
+		return;
 	}
 });
 
-router.post('/register', async (req, res) => {
-	const email = req.body.email;
-	const username = req.body.username;
-	const password = req.body.password;
-	const firstName = req.body.firstName;
-	const lastName = req.body.lastName;
-
-	try {
-		if (!email || !password || !username || !firstName || !lastName) {
-			return res.status(400).send({
-				error: 'Email, Username, Password, First Name and Last Name (all) have to be provided',
-			});
-		}
-
-		const userExists = await User.findOne({ username });
-		if (userExists) {
-			return res.status(403).send({ error: 'This user already exists!' });
-		}
-
-		if (password.length < 5)
-			return res
-				.status(403)
-				.send({ error: 'Password must be at least 5 characters' });
-
-		if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email)) {
-			return res
-				.status(403)
-				.send({ error: 'Please enter a valid email address' });
-		}
-
-		const hashedPassword = await bcrypt.hash(password, 10);
-
-		const newUser = new User({
-			email,
-			username,
-			password: hashedPassword,
-			firstName,
-			lastName,
-		});
-		await newUser.save();
-
-		return res.send({ user: newUser });
-	} catch (err) {
-		console.log({ error });
-		return res
-			.status(500)
-			.send({ error: 'An unexpected error occurred', details: err });
-	}
-});
-
+<<<<<<< HEAD
+       router.route('/logout')
+       .get(async (request,response) => {
+        if(request.session.user){
+            request.session.destroy();
+            response.status(200).send({status:"User Succesfully logged out"});
+        }
+        else{
+            response.status(400).send("User in not logged in");
+            return;
+        }
+       });
+   
+    module.exports = router;
+=======
 module.exports = router;
+>>>>>>> 4f559e1f66919c53c3300cbb35c1c94797da7209
