@@ -15,8 +15,10 @@ import ErrorIcon from '@mui/icons-material/Error'
 
 import { loginUser, useAxios } from '../utils/apiCalls'
 import { Link, Navigate } from 'react-router-dom'
+import { useAuth } from '../context/userContext'
 
 const Login = () => {
+  const { session, setSession } = useAuth()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [error, setError] = useState(null);
@@ -36,8 +38,11 @@ const Login = () => {
   }
 
   if (data?.user?.email) {
+    setSession(data.token)
     return <Navigate to='/' replace={true} />
   }
+
+  if (session) return <Navigate to='/' replace={true} />
 
   return (
     <Stack

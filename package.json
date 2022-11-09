@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "cs-555-group-6",
   "version": "1.0.0",
   "description": "SociaMediaAppForParents",
@@ -31,36 +30,4 @@
     "chai-http": "^4.3.0",
     "mocha": "^10.1.0"
   }
-=======
-	"name": "cs-555-group-6",
-	"version": "1.0.0",
-	"description": "SociaMediaAppForParents",
-	"main": "app.js",
-	"scripts": {
-		"start": "nodemon app.js",
-		"test": "mocha --timeout 10000"
-	},
-	"author": "cs-555-group-6",
-	"license": "ISC",
-	"dependencies": {
-		"bcrypt": "^5.1.0",
-		"cors": "^2.8.5",
-		"dotenv": "^16.0.3",
-		"express": "^4.18.2",
-		"express-session": "^1.17.3",
-		"jsonwebtoken": "^8.5.1",
-		"moment": "^2.29.4",
-		"mock-session": "^0.0.5",
-		"mongodb": "^4.10.0",
-		"mongoose": "^6.7.0",
-		"nodemon": "^2.0.20",
-		"passport-stub": "^1.1.1",
-		"supertest": "^6.3.1"
-	},
-	"devDependencies": {
-		"chai": "^4.3.6",
-		"chai-http": "^4.3.0",
-		"mocha": "^10.1.0"
-	}
->>>>>>> 0e029ffd1a89aa13936faed50ca1001355408c41
 }

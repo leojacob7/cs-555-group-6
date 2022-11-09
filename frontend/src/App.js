@@ -1,25 +1,42 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 
 import Login from './components/Login';
 import SignUp from './components/Signup';
 import Profile from './components/Profile';
 import HomePage from './components/HomePage';
 import PageNotFound from './components/404Page';
+import AuthRoute from './AuthRoute';
+import { UserProvider } from './context/userContext';
 
 const App = () => {
 	return (
 		<>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<HomePage />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<SignUp />} />
-					<Route path='/profile' element={<Profile />} />
-					<Route path="*" element={<PageNotFound />} />
-				</Routes>
-			</BrowserRouter>
+			<UserProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route path="/register" element={<SignUp />} />
+						<Route
+							path="/"
+							element={
+								<>
+									<AuthRoute>
+										<Outlet />
+									</AuthRoute>
+								</>
+							}
+						>
+							<Route index path="/" element={<HomePage />} />
+
+							<Route path="/profile" element={<Profile />} />
+							<Route path="*" element={<PageNotFound />} />
+						</Route>
+						<Route path="/login" element={<Login />} />
+						<Route path="*" element={<PageNotFound />} />
+					</Routes>
+				</BrowserRouter>
+			</UserProvider>
 		</>
 	);
 };
