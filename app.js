@@ -21,6 +21,12 @@ mongoose.connect('mongodb://localhost:27017/cs-555-group-6', () =>
 
 configRoutes(app);
 
+app.use('/', (req, res, next) => {
+	console.log('request', req.body, 'Req URL', req.url);
+	req.url = req.url.trim();
+	next();
+});
+
 app.listen(4000, () => {
 	console.log("We've now got a server!");
 	console.log('Your routes will be running on http://localhost:4000');

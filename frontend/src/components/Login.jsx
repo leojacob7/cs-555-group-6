@@ -13,15 +13,17 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import KeyIcon from '@mui/icons-material/Key'
 import ErrorIcon from '@mui/icons-material/Error'
 
-import { loginUser, useAxios } from '../utils/apiCalls'
+import { useAxios } from '../utils/apiCalls'
 import { Link, Navigate } from 'react-router-dom'
+import { useAuth } from '../context/userContext'
 
 const Login = () => {
+  const { session, setSession } = useAuth()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(false)
-  const [data, error, setError, loading, operation] = useAxios()
+  const [data, error, , , operation] = useAxios()
 
   useEffect(() => {}, [username, password])
 
@@ -34,10 +36,13 @@ const Login = () => {
     operation('login', payload)
     setLoading(false)
   }
-
+  // console.log('cookie', data)
   if (data?.user?.email) {
+    setSession(data.token)
     return <Navigate to='/' replace={true} />
   }
+
+  if (session) return <Navigate to='/' replace={true} />
 
   return (
     <Stack

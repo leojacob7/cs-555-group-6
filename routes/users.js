@@ -31,17 +31,17 @@ const User = require('../models/user');
 // });
 
 router.post('/login', async (req, res) => {
-	const username = req.body.username;
+	const email = req.body.email;
 	const password = req.body.password;
 
 	try {
-		if (!password || !username) {
+		if (!password || !email) {
 			return res.status(400).send({
 				error: 'Username and Password (both) have to be provided',
 			});
 		}
 
-		const user = await User.findOne({ username });
+		const user = await User.findOne({ email });
 
 		if (!user) {
 			return res
@@ -61,6 +61,11 @@ router.post('/login', async (req, res) => {
 			expiresIn: 60 * 60 * 24 * 365, // 1 year
 		});
 
+		res.cookie('token', token, {
+			expiresIn: 60 * 60 * 24 * 365,
+			secure: true,
+		});
+
 		return res.send({ user, token });
 	} catch (err) {
 		console.log({ err });
@@ -78,13 +83,14 @@ router.post('/register', async (req, res) => {
 	const lastName = req.body.lastName;
 
 	try {
-		if (!email || !password || !username || !firstName || !lastName) {
+		if (!email || !password || !firstName || !lastName) {
+			console.log({ email, username, password, firstName, lastName });
 			return res.status(400).send({
 				error: 'Email, Username, Password, First Name and Last Name (all) have to be provided',
 			});
 		}
 
-		const userExists = await User.findOne({ username });
+		const userExists = await User.findOne({ email });
 		if (userExists) {
 			return res.status(403).send({ error: 'This user already exists!' });
 		}
@@ -104,7 +110,6 @@ router.post('/register', async (req, res) => {
 
 		const newUser = new User({
 			email,
-			username,
 			password: hashedPassword,
 			firstName,
 			lastName,
@@ -117,6 +122,17 @@ router.post('/register', async (req, res) => {
 		return res
 			.status(500)
 			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
+
+router.post('/logout', async (req, res) => {
+	try {
+		const token = req.header('Authorization');
+		// jwt.destroy(token);
+		res.clearCookie('token');
+		res.status(200).json({ message: 'You have logged out' });
+	} catch (error) {
+		res.status(400).send({ error: error?.message ?? error }); //need to render
 	}
 });
 
