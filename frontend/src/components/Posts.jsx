@@ -1,11 +1,13 @@
-import { Stack } from '@chakra-ui/react'
+import Stack from '@mui/material/Stack'
 import React from 'react'
-import Post from './post'
+import Post from './Post'
 
 export const Posts = ({ posts }) => {
   return (
     <Stack spacing={5}>
-      {posts.map((post) => <Post key={post.id} post={post} />)}
+      {posts.map(post => (
+        <Post key={post.id} post={post} />
+      ))}
     </Stack>
   )
 }
