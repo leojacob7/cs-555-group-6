@@ -5,15 +5,13 @@ import { useAxios } from '../utils/apiCalls'
 export const AuthContext = createContext(1)
 
 export const UserProvider = ({ children }) => {
-  console.log('here in context', children)
-  const [session, setSession] = useState(localStorage.getItem('user') || null)
+  const sessionValue = localStorage.getItem('user')
+  let parsedSessionValue = null
+  if (sessionValue) parsedSessionValue = sessionValue
+  const [session, setSession] = useState(parsedSessionValue)
   const [user, setUser] = useState(null)
-  const [data, error, setError, loading, operation] = useAxios()
 
-  const memoisedValue = memo(
-    () => ({ session, user, error, setUser, setError, setSession }),
-    [user, error]
-  )
+  const [, error, setError, loading, operation] = useAxios()
 
   useEffect(() => {
     localStorage.setItem('user', session)

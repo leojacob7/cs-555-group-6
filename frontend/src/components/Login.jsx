@@ -41,8 +41,8 @@ const Login = () => {
     setSession(data.token)
     return <Navigate to='/' replace={true} />
   }
-
-  if (session) return <Navigate to='/' replace={true} />
+  if (session !== 'null' && session != null)
+    return <Navigate to='/' replace={true} />
 
   return (
     <Stack

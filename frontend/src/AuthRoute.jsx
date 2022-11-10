@@ -3,10 +3,10 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from './context/userContext'
 
 function AuthRoute ({ children }) {
-  const location = useLocation()
-  const data = useAuth()
-  console.log('here authroute ??', data)
-  if (!data.session) return <Navigate to='/login' state={{ from: location }} />
+  const { session } = useAuth()
+  if (session === 'null' || session == null) {
+    return <Navigate to='/login' replace={true} />
+  }
   return children
 }
 

@@ -17,6 +17,7 @@ const App = () => {
 				<BrowserRouter>
 					<Routes>
 						<Route path="/register" element={<SignUp />} />
+						<Route path="/login" element={<Login />} />
 						<Route
 							path="/"
 							element={
@@ -32,7 +33,7 @@ const App = () => {
 							<Route path="/profile" element={<Profile />} />
 							<Route path="*" element={<PageNotFound />} />
 						</Route>
-						<Route path="/login" element={<Login />} />
+
 						<Route path="*" element={<PageNotFound />} />
 					</Routes>
 				</BrowserRouter>

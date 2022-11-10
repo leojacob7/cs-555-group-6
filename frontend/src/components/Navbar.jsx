@@ -15,10 +15,12 @@ import { Stack } from '@mui/material'
 // import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import AddNewPost from './AddNewPost'
 import { useAuth } from '../context/userContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function Navbar () {
   // for menu list
   const [anchorEl, setAnchorEl] = useState(null)
+  const navigate = useNavigate()
   const { setSession } = useAuth()
   const open = Boolean(anchorEl)
   const handleClick = event => {
@@ -26,6 +28,7 @@ export default function Navbar () {
   }
   const handleClose = () => {
     setAnchorEl(null)
+    navigate('/login')
   }
 
   const handleLogout = () => {
