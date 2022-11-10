@@ -16,6 +16,7 @@ import { BE_URL, signupUser, useAxios } from '../utils/apiCalls'
 import axios from 'axios'
 import { Link, Navigate } from 'react-router-dom'
 import { Box } from '@mui/material'
+import { useAuth } from '../context/userContext'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
@@ -26,6 +27,7 @@ const SignUp = () => {
   //   const [error, setError] = useState(null)
   const [isLoading, setLoading] = useState(false)
   const [data, error, setError, loading, operation] = useAxios()
+  const { session } = useAuth()
 
   const handleSignUp = async e => {
     e.preventDefault()
@@ -54,6 +56,9 @@ const SignUp = () => {
     </Box>
     return <Navigate to='/login' replace={true} />
   }
+
+  if (session !== 'null' && session != null)
+    return <Navigate to='/' replace={true} />
 
   return (
     <Stack
