@@ -1,6 +1,8 @@
 import CommentForm from "./CommentForm";
+import { Avatar, Box, Typography} from '@mui/joy';
+import { Stack } from '@mui/material';
 
-const Comment = ({
+const Comment = ({ 
   comment,
   replies,
   setActiveComment,
@@ -10,100 +12,82 @@ const Comment = ({
   addComment,
   parentId = null,
   currentUserId,
+
 }) => {
-  const isEditing =
+    const isEditing =
     activeComment &&
     activeComment.id === comment.id &&
     activeComment.type === "editing";
-  const isReplying =
+    const isReplying =
     activeComment &&
     activeComment.id === comment.id &&
     activeComment.type === "replying";
-  const fiveMinutes = 300000;
-  const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes;
-  const canDelete =
-    currentUserId === comment.userId && replies.length === 0 && !timePassed;
-  const canReply = Boolean(currentUserId);
-  const canEdit = currentUserId === comment.userId && !timePassed;
-  const replyId = parentId ? parentId : comment.id;
-  const createdAt = new Date(comment.createdAt).toLocaleDateString();
+    const canDelete =
+    currentUserId === comment.userId && replies.length === 0;
+    const canEdit = currentUserId === comment.userId;
+    const canReply = Boolean(currentUserId);
+    const createdAt = new Date(comment.createdAt).toLocaleDateString();
+    const replyId = parentId ? parentId : comment.id;
+   
+
   return (
     <div key={comment.id} className="comment">
-      {/* <div className="comment-image-container">
-        <img src="/user-icon.png" />
-      </div> */}
-      <div className="comment-right-part">
-        <div className="comment-content">
-          <div className="comment-author">{comment.username}</div>
-          <div>{createdAt}</div>
-        </div>
-        {!isEditing && <div className="comment-text">{comment.body}</div>}
-        {isEditing && (
-          <CommentForm
-            submitLabel="Update"
-            hasCancelButton
-            initialText={comment.body}
-            handleSubmit={(text) => updateComment(text, comment.id)}
-            handleCancel={() => {
-              setActiveComment(null);
-            }}
-          />
-        )}
+    <Stack direction="row" spacing={2}> 
+        <Avatar/>
+      
+      <Stack spacing={2}>
+      <Stack direction="row" spacing={2}>
+        <Typography component='strong'>{comment.username}</Typography>
+          <Typography>{createdAt}</Typography>
+        </Stack>
+        <Typography >{comment.body} </Typography>
+        <Stack direction="row" spacing={2}>
+        <div className="comment-actions"> Reply </div>
+        <div className="comment-actions"> Edit </div>
+        <div className="comment-actions"> Delete </div>
+        </Stack>
         <div className="comment-actions">
           {canReply && (
             <div
-              className="comment-action"
-              onClick={() =>
-                setActiveComment({ id: comment.id, type: "replying" })
-              }
-            >
-              Reply
-            </div>
+            className="comment-actions"
+            onClick={() => 
+              setActiveComment ({id : comment.id, type: "replying "})
+            }
+          > Reply </div>)}
+          {isReplying && (
+            <CommentForm
+              submitLabel="Reply"
+              handleSubmit={(text) => addComment(text, replyId)}
+            />
           )}
-          {canEdit && (
-            <div
-              className="comment-action"
-              onClick={() =>
-                setActiveComment({ id: comment.id, type: "editing" })
-              }
-            >
-              Edit
-            </div>
-          )}
-          {canDelete && (
-            <div
-              className="comment-action"
-              onClick={() => deleteComment(comment.id)}
-            >
-              Delete
-            </div>
-          )}
+          
         </div>
         {isReplying && (
           <CommentForm
             submitLabel="Reply"
             handleSubmit={(text) => addComment(text, replyId)}
-          />
-        )}
+          />)}
+
         {replies.length > 0 && (
-          <div className="replies">
+          <Stack direction="row" spacing={2} >
             {replies.map((reply) => (
               <Comment
-                comment={reply}
-                key={reply.id}
-                setActiveComment={setActiveComment}
-                activeComment={activeComment}
-                updateComment={updateComment}
-                deleteComment={deleteComment}
-                addComment={addComment}
-                parentId={comment.id}
-                replies={[]}
-                currentUserId={currentUserId}
+              comment={reply}
+              key={reply.id}
+              setActiveComment={setActiveComment}
+              activeComment={activeComment}
+              updateComment={updateComment}
+              deleteComment={deleteComment}
+              addComment={addComment}
+              parentId={comment.id}
+              replies={[]}
+              currentUserId={currentUserId}
               />
             ))}
-          </div>
+          </Stack>
         )}
-      </div>
+      </Stack>
+      </Stack>
     </div>
   );
 };

@@ -47,8 +47,9 @@ const Post = ({ post }) => {
 						{post.title}
 					</Typography>
 				</Box>
-				<Divider sx={{ width: '100%', marginY: '2%' }} />
-        <Stack direction='row' spacing={2}>
+		<Divider sx={{ width: '100%', marginY: '2%' }} />
+		
+        	<Stack direction='row' spacing={2}>
           <Button
             sx={{ marginBottom: '10%' }}
             variant='soft'
@@ -63,6 +64,7 @@ const Post = ({ post }) => {
           </Button>
         </Stack>
         <Divider sx={{ width: '100%' }} />
+		
         <Box sx={{ width: '100%', marginY: '2%' }}>
           
 		  <Comments/>
