@@ -18,7 +18,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../context/userContext'
 
 const Login = () => {
-  const { session, setSession } = useAuth()
+  const { session, setSession, setUser } = useAuth()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [error, setError] = useState(null);
@@ -39,6 +39,7 @@ const Login = () => {
 
   if (data?.user?.email) {
     setSession(data.token)
+    setUser(data.user)
     return <Navigate to='/' replace={true} />
   }
   if (session !== 'null' && session != null)
