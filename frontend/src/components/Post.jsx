@@ -64,12 +64,8 @@ const Post = ({ post }) => {
         </Stack>
         <Divider sx={{ width: '100%' }} />
         <Box sx={{ width: '100%', marginY: '2%' }}>
-          <Stack direction='row' spacing={2}>
-            <TextField fullWidth variant='soft' placeholder='Add a comment' />
-            <Button variant='soft'>
-              <SendIcon color='secondary' />
-            </Button>
-          </Stack>
+          
+		  <Comments/>
         </Box>
 			</Stack>
 		</Box>

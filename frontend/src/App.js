@@ -22,9 +22,9 @@ const App = () => {
 							path="/"
 							element={
 								<>
-									<AuthRoute>
+									{/* <AuthRoute> */}
 										<Outlet />
-									</AuthRoute>
+									{/* </AuthRoute> */}
 								</>
 							}
 						>

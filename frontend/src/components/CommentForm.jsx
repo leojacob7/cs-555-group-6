@@ -1,14 +1,14 @@
-import TextField from "@material-ui/core/TextField";
-import React, { useState } from "react";
-import { Button, Paper } from "@material-ui/core";
-import { Stack } from "@mui/joy";
-
-
-const CommentForm = ( {
-    handleSubmit,
-    initialText = ""
-}
-) => {
+import { Box, Button, FormControl, Input, InputLabel, Stack } from "@mui/material";
+import { TextField } from '@mui/joy';
+import { useState } from "react";
+import SendIcon from '@mui/icons-material/Send';
+const CommentForm = ({
+  handleSubmit,
+  submitLabel,
+  hasCancelButton = false,
+  handleCancel,
+  initialText = "",
+}) => {
   const [text, setText] = useState(initialText);
   const isTextareaDisabled = text.length === 0;
   const onSubmit = (event) => {
@@ -17,20 +17,35 @@ const CommentForm = ( {
     setText("");
   };
   return (
-    <form onSubmit={onSubmit}>
-    <Stack direction="row" spacing={2}>
-    <TextField
-        onChange={(e) => setText(e.target.value)}
-        value={text}
-        fullWidth label={"Type comment here"} 
-        multiline
-        variant="outlined"
-        />
+     <form onSubmit={onSubmit}>
+      <TextField
+      value={text}
+      onChange={(e) => setText(e.target.value)}
+      fullWidth label={"Type comment here"} 
+      variant="outlined"
+      >
+      write comment here
+      </TextField>
 
-    <Button variant="outlined" onClick={onSubmit}>Submit</Button>
-    </Stack>
-      
-    </form>
+      {/* <Button disabled>
+        {submitLabel}
+      </Button> */}
+    
+
+      <button className="comment-form-button" disabled={isTextareaDisabled}>
+        {submitLabel}
+      </button>
+
+      {hasCancelButton && (
+        <button
+          type="button"
+          className="comment-form-button comment-form-cancel-button"
+          onClick={handleCancel}
+        >
+          Cancel
+        </button>
+      )}
+   </form>
   );
 };
 

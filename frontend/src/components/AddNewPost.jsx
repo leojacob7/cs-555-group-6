@@ -53,9 +53,18 @@ const AddNewPost = () => {
 								<FormLabel required>Post title</FormLabel>
 								<Textarea
 									value={title}
-									minRows={3}
+									minRows={1}
 									required
 									onChange={(e) => setTitle(e.target.value)}
+								/>
+							</FormControl>
+							<FormControl id='post-body'>
+								<FormLabel required>Post Body</FormLabel>
+								<Textarea
+									value={title}
+									minRows={3}
+									// required
+									// onChange={(e) => setTitle(e.target.value)}
 								/>
 							</FormControl>
 						</Box>
