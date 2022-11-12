@@ -27,7 +27,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
       setActiveComment(null);
     });
   };
-
+ 
   const updateComment = (text, commentId) => {
     updateCommentApi(text).then(() => {
       const updatedBackendComments = backendComments.map((backendComment) => {
@@ -60,7 +60,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
   return (
     <div className="comments">
       <h3 className="comments-title">Comments</h3>
-      
+      <div className="comment-form-title">Write comment</div>
       <CommentForm submitLabel="Write" handleSubmit={addComment} />
       <div className="comments-container">
         {rootComments.map((rootComment) => (
