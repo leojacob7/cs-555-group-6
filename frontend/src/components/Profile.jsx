@@ -11,11 +11,11 @@ import Divider from '@mui/joy/Divider';
 import Navbar from './Navbar';
 import { Posts } from './Posts';
 import { GiAbstract036 } from 'react-icons/gi';
-import { TextField } from '@mui/material';
+import { FormControl, Grid, TextareaAutosize, TextField } from '@mui/material';
 import Image from 'material-ui-image'
 import post from './Post'
 import { spacing } from '@mui/system';
-
+import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
 
 const Profile = () =>  {
 	const test_posts = [
@@ -65,7 +65,7 @@ const Profile = () =>  {
 		},
 	];
 
-
+	let [text, setText] = useState()
 	const [posts, setPosts] = useState([...test_posts]);
 	return (
 		<Box>
@@ -114,119 +114,38 @@ const Profile = () =>  {
 					</Box>
 				</Stack>
 				<Stack padding={1} sx={{ width: '50%' }}>
-					<Box borderWidth='1px' borderRadius='lg' boxShadow={'md'} px={4} py={2} alignItems='center' sy={{width:'101'}} >
-									Space for desc
+					<Box borderWidth='1px' borderRadius='lg' boxShadow={'md'} sx={{ p: 2 }} px={4} alignItems='center'>
+					<TextareaAutosize minRows={6} style={{ width:700 }} id="text-edit" value={text} placeholder="Tell me about Yourself" onChange={(event) =>setText(event.target.value)}
+      				></TextareaAutosize>
 					</Box>
 					<Box sx={{ width: '100%' }} py={2}>
 							<Posts posts={posts} />
 					</Box>
+					
 				</Stack>
 				
 				<Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
 					<Typography level='h2' component='strong'>
 						Karma : 2,199
+
+						
 					</Typography>
 					<Divider orientation="horizontal" flexItem />
+					<Grid container spacing={2}>
+  <Grid item xs={6}>
+	asas
+  </Grid>
+  <Grid item xs={6}>
+ewew  </Grid>
+  <Grid item xs={6}>
+    adad
+  </Grid>
+  <Grid item xs={6}>
+    sfsf
+  </Grid>
+</Grid>
 				</Box>
-				
 			</Stack>
-			{/* <Stack spacing='24px' >
-				<Box
-					maxW={'270px'}
-					maxH={'500px'}
-					w={'280px'}
-					boxShadow={'2xl'}
-					rounded={'md'}
-					overflow={'hidden'}>
-					<Avatar alt="Remy Sharp" src='https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
-						objectFit={'cover'}
-					/>
-					<Stack justify={'center'} mt={-12}>
-						<Avatar
-							size={'xl'}
-							src={
-								'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-							}
-							alt={'Author'}
-							css={{
-								border: '2px solid white',
-							}}
-						/>
-					</Stack>
-
-					<Box p={6}>
-						<Stack spacing={0} align={'center'} mb={5}>
-							Frontend dev
-						</Stack>
-
-						<Stack spacing={0} align={'center'}>
-							23k
-							Followers
-						</Stack>
-
-						<Button
-							w={'full'}
-							mt={8}
-							color={'white'}
-							rounded={'md'}
-							_hover={{
-								transform: 'translateY(-2px)',
-								boxShadow: 'lg',
-							}}>
-							Follow
-						</Button>
-					</Box>
-				</Box>
-				<Stack w={'800px'}>
-					<Box
-						p={10}
-						maxW={'800px'}
-						maxH={'2000px'}
-						w={'full'}
-						boxShadow={'2xl'}
-						rounded={'md'}
-						overflow={'hidden'}>
-						<Box>
-							<TextField id="outlined-basic" label="Outlined" variant="outlined" />
-						</Box>
-					</Box>
-
-					<Box
-						p={10}
-						maxW={'800px'}
-						maxH={'2000px'}
-						w={'full'}						
-						boxShadow={'2xl'}
-						rounded={'md'}
-						overflow={'hidden'}>
-						<Posts posts={posts} />
-					</Box>
-				</Stack>
-				<Box
-					p={10}
-					maxW={'270px'}
-					maxH={'420px'}
-					w={'full'}
-					boxShadow={'2xl'}
-					rounded={'md'}
-					overflow={'hidden'}>
-					<Stack spacing={'10'}>
-						<Stack>
-							<Box boxSize='50px'>
-								<GiAbstract036 />
-							</Box>
-							<Box maxW={'50px'}>carma</Box>
-						</Stack>
-						<Box>cARMA POINTS</Box>
-						<Divider orientation='horizontal' />
-					</Stack>
-					<Stack>
-						<Box>
-							 Top rewards
-						</Box>
-					</Stack>
-				</Box>
-			</Stack> */}
 		</Box>
 	);
 }
