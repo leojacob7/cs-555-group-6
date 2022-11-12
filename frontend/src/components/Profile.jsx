@@ -16,6 +16,9 @@ import Image from 'material-ui-image'
 import post from './Post'
 import { spacing } from '@mui/system';
 import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
+import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
+import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
+import MilitaryTechRoundedIcon from '@mui/icons-material/MilitaryTechRounded';
 
 const Profile = () =>  {
 	const test_posts = [
@@ -133,15 +136,23 @@ const Profile = () =>  {
 					<Divider orientation="horizontal" flexItem />
 					<Grid container spacing={2}>
   <Grid item xs={6}>
-	asas
+  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+	<AcUnitRoundedIcon/>
+	</Box>
   </Grid>
   <Grid item xs={6}>
-ewew  </Grid>
+  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+	<EmojiEventsRoundedIcon/>
+	</Box>  </Grid>
   <Grid item xs={6}>
-    adad
+  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+	<StarsRoundedIcon/>
+	</Box>
   </Grid>
   <Grid item xs={6}>
-    sfsf
+  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+	<MilitaryTechRoundedIcon/>
+	</Box>
   </Grid>
 </Grid>
 				</Box>
