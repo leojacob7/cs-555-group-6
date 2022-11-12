@@ -26,10 +26,6 @@ const CommentForm = ({
       >
       write comment here
       </TextField>
-
-      {/* <Button disabled>
-        {submitLabel}
-      </Button> */}
     
 
       <button className="comment-form-button" disabled={isTextareaDisabled}>
