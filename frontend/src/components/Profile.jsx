@@ -127,35 +127,46 @@ const Profile = () =>  {
 					
 				</Stack>
 				
-				<Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+			
+					<Stack direction='column' padding={1} alignItems='center' justify='center' spacing={3}>
+					<Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
 					<Typography level='h2' component='strong'>
 						Karma : 2,199
-
-						
 					</Typography>
+					</Box>
 					<Divider orientation="horizontal" flexItem />
-					<Grid container spacing={2}>
-  <Grid item xs={6}>
-  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
-	<AcUnitRoundedIcon/>
-	</Box>
-  </Grid>
-  <Grid item xs={6}>
-  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
-	<EmojiEventsRoundedIcon/>
-	</Box>  </Grid>
-  <Grid item xs={6}>
-  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
-	<StarsRoundedIcon/>
-	</Box>
-  </Grid>
-  <Grid item xs={6}>
-  <Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
-	<MilitaryTechRoundedIcon/>
-	</Box>
-  </Grid>
-</Grid>
-				</Box>
+					<Box borderWidth='1px' borderRadius='lg'  px={4} py={2}  boxShadow={'md'}>
+					<Stack direction='column' padding={1} alignItems='center' justify='center' spacing={1}>	
+					<Typography level='h4' component='strong'>
+						Rewards
+					</Typography>
+					<Grid container spacing={1}>
+ 						<Grid item xs={6}>
+							<Box borderWidth='1px' borderRadius='lg'  px={2} py={2}  boxShadow={'md'}>
+								<AcUnitRoundedIcon/> :1
+							</Box>
+						</Grid>
+						<Grid item xs={6}>
+							<Box borderWidth='1px' borderRadius='lg'  px={1} py={2}  boxShadow={'md'}>
+								<EmojiEventsRoundedIcon/>
+							</Box>
+						</Grid>
+						<Grid item xs={6}>
+							<Box borderWidth='1px' borderRadius='lg'  px={1} py={2}  boxShadow={'md'}>
+								<StarsRoundedIcon/>
+							</Box>
+						</Grid>
+						<Grid item xs={6}>
+							<Box borderWidth='1px' borderRadius='lg'  px={1} py={2}  boxShadow={'md'}>
+								<MilitaryTechRoundedIcon/>
+							</Box>
+						</Grid>
+					</Grid>
+					</Stack>	
+					</Box>
+					asas
+					</Stack>
+					
 			</Stack>
 		</Box>
 	);
