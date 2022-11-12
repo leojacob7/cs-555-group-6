@@ -19,6 +19,7 @@ import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
 import EmojiEventsRoundedIcon from '@mui/icons-material/EmojiEventsRounded';
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import MilitaryTechRoundedIcon from '@mui/icons-material/MilitaryTechRounded';
+import FileUploadComponent from './fileUpload.component';
 
 const Profile = () =>  {
 	const test_posts = [
@@ -143,30 +144,28 @@ const Profile = () =>  {
 					<Grid container spacing={1}>
  						<Grid item xs={6}>
 							<Box borderWidth='1px' borderRadius='lg'  px={2} py={2}  boxShadow={'md'}>
-								<AcUnitRoundedIcon/> :1
+								<AcUnitRoundedIcon/>
 							</Box>
 						</Grid>
 						<Grid item xs={6}>
-							<Box borderWidth='1px' borderRadius='lg'  px={1} py={2}  boxShadow={'md'}>
-								<EmojiEventsRoundedIcon/>
+							<Box borderWidth='1px' borderRadius='lg'  px={2} py={2}  boxShadow={'md'}>
+								<EmojiEventsRoundedIcon/> 
 							</Box>
 						</Grid>
 						<Grid item xs={6}>
-							<Box borderWidth='1px' borderRadius='lg'  px={1} py={2}  boxShadow={'md'}>
+							<Box borderWidth='1px' borderRadius='lg'  px={2} py={2}  boxShadow={'md'}>
 								<StarsRoundedIcon/>
 							</Box>
 						</Grid>
 						<Grid item xs={6}>
-							<Box borderWidth='1px' borderRadius='lg'  px={1} py={2}  boxShadow={'md'}>
+							<Box borderWidth='1px' borderRadius='lg'  px={2} py={2}  boxShadow={'md'}>
 								<MilitaryTechRoundedIcon/>
 							</Box>
 						</Grid>
 					</Grid>
 					</Stack>	
 					</Box>
-					asas
 					</Stack>
-					
 			</Stack>
 		</Box>
 	);
