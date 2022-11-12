@@ -5,6 +5,7 @@ import moment from 'moment';
 import SendIcon from '@mui/icons-material/Send';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
+import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
 import Comments from "./Comments";
 // import { Link } from 'react-router-dom';
 
@@ -13,6 +14,10 @@ const Post = ({ post }) => {
   const likePost = e => {
     setLikedPost(!likedPost)
     // TODO: make a BE call to like or unlike a post
+  }
+  const [awarded, setawarded] = React.useState(post.currentUserAward)
+  const award = e => {
+    setawarded(!awarded)
   }
   
 	return (
@@ -49,7 +54,7 @@ const Post = ({ post }) => {
 				</Box>
 		<Divider sx={{ width: '100%', marginY: '2%' }} />
 		
-        	<Stack direction='row' spacing={2}>
+        <Stack direction='row' spacing={2}>
           <Button
             sx={{ marginBottom: '10%' }}
             variant='soft'
@@ -62,6 +67,19 @@ const Post = ({ post }) => {
               <ThumbUpOutlinedIcon color='secondary' />
             )}
           </Button>
+
+		  <Button
+		  sx={{ marginBottom: '10%' }}
+		  variant='soft'
+		  color='primary'
+		  onClick={award}
+          >
+            {awarded ? (
+              <AcUnitRoundedIcon color='secondary' />
+            ) : (
+              <AcUnitRoundedIcon color='secondary' />
+            )}
+		  </Button>
         </Stack>
         <Divider sx={{ width: '100%' }} />
 		
