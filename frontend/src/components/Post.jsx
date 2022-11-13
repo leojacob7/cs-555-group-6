@@ -7,6 +7,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
 import Comments from "./Comments";
+import Share from "./Share";
 // import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
@@ -80,6 +81,9 @@ const Post = ({ post }) => {
               <AcUnitRoundedIcon color='secondary' />
             )}
 		  </Button>
+			
+			
+
         </Stack>
         <Divider sx={{ width: '100%' }} />
 		

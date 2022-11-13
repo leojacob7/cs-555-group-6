@@ -1,6 +1,7 @@
 import CommentForm from "./CommentForm";
 import { Avatar, Box, Typography} from '@mui/joy';
 import {  Grid, IconButton, Paper, Stack } from '@mui/material';
+import Share from "./Share";
 
 const Comment = ({ 
   comment,
@@ -88,6 +89,16 @@ const Comment = ({
               Edit
               
             </div>
+
+            
+              
+            <Share label="Share" />
+            
+              
+              
+            
+
+          
           
           
           
