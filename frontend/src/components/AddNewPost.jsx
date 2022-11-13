@@ -8,6 +8,7 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import ModalClose from '@mui/joy/ModalClose';
 import { Box, Divider, Typography } from '@mui/joy';
+import FileUploadComponent from './fileUpload.component';
 
 const AddNewPost = () => {
 	const [open, setOpen] = useState(false);
@@ -67,6 +68,7 @@ const AddNewPost = () => {
 									// onChange={(e) => setTitle(e.target.value)}
 								/>
 							</FormControl>
+							<FileUploadComponent/>
 						</Box>
 
 						<Box>
