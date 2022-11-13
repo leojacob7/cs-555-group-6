@@ -5,16 +5,22 @@ import { useAxios } from '../utils/apiCalls'
 export const AuthContext = createContext(1)
 
 export const UserProvider = ({ children }) => {
-  const sessionValue = localStorage.getItem('user')
+  const sessionValue = localStorage.getItem('session')
   let parsedSessionValue = null
   if (sessionValue) parsedSessionValue = sessionValue
+
+  const userValue = localStorage.getItem('user')
+  let parsedUserValue = null
+  if (sessionValue) parsedUserValue = JSON.parse(userValue)
+
   const [session, setSession] = useState(parsedSessionValue)
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(parsedUserValue)
 
   const [, error, setError, loading, operation] = useAxios()
 
   useEffect(() => {
-    localStorage.setItem('user', session)
+    localStorage.setItem('session', session)
+    localStorage.setItem('user', JSON.stringify(user))
   }, [user, session])
 
   console.log('>>', session)

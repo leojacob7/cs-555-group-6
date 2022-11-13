@@ -21,7 +21,7 @@ export default function Navbar () {
   // for menu list
   const [anchorEl, setAnchorEl] = useState(null)
   const navigate = useNavigate()
-  const { setSession } = useAuth()
+  const { setSession, user } = useAuth()
   const open = Boolean(anchorEl)
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
@@ -69,7 +69,7 @@ export default function Navbar () {
               />
 
               <Typography level='body1' component='strong'>
-                Username
+                {`Hello ${user?.firstName}`}
               </Typography>
               <MenuList alignItems='center'>
                 <MenuItem onClick={handleClose}>Your Servers</MenuItem>
