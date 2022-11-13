@@ -7,6 +7,7 @@ import Textarea from '@mui/joy/Textarea';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import ModalClose from '@mui/joy/ModalClose';
+import FileUploadComponent from './fileUpload.component';
 import { Box, Divider, Typography } from '@mui/joy';
 
 const AddNewPost = () => {
@@ -63,6 +64,16 @@ const AddNewPost = () => {
 								<Textarea
 									value={title}
 									minRows={3}
+									// required
+									// onChange={(e) => setTitle(e.target.value)}
+								/>
+							</FormControl>
+
+							<FormControl id='post-tag'>
+								<FormLabel required>Post tag</FormLabel>
+								<Textarea
+									value={title}
+									minRows={1}
 									// required
 									// onChange={(e) => setTitle(e.target.value)}
 								/>
