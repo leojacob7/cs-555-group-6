@@ -1,10 +1,15 @@
 const express = require('express');
-const { ConnectionClosedEvent } = require('mongodb');
+const { ImgurClient } = require('imgur');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const userData = require('../data/users');
 const User = require('../models/user');
+const verifyToken = require('../utils/verifyToken');
+
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // router.route('/login').post(async (request, response) => {
 // 	const userName = request.body.username;
@@ -123,6 +128,103 @@ router.post('/register', async (req, res) => {
 			.send({ error: 'An unexpected error occurred', details: err });
 	}
 });
+
+router.post(
+	'/update-profile',
+	verifyToken,
+	upload.fields([{ name: 'avatar' }, { name: 'backdrop' }]),
+	async (req, res) => {
+		const avatar = req.files.avatar;
+		const backdrop = req.files.backdrop;
+
+		if (!avatar || !backdrop) {
+			return res
+				.status(400)
+				.send({ error: 'Avatar/Backdrop image must be provided!' });
+		}
+
+		try {
+			const user = await User.findOne({ _id: req.user });
+
+			const client = new ImgurClient({
+				clientId: process.env.CLIENT_ID,
+			});
+
+			if (avatar && !backdrop) {
+				const response = await client.upload({
+					image: avatar[0].buffer,
+					name: `avatar_${user.firstName}_${
+						user.lastName
+					}_${Date.now()}`,
+					type: 'stream',
+				});
+
+				const updateStatus = await User.updateOne(
+					{ _id: req.user },
+					{ avatar: response.data.link }
+				);
+
+				if (updateStatus.modifiedCount === 1) {
+					return res.send({
+						message: 'Avatar updated successfully!',
+					});
+				}
+			} else if (!avatar && backdrop) {
+				const response = await client.upload({
+					image: backdrop[0].buffer,
+					name: `backdrop_${user.firstName}_${
+						user.lastName
+					}_${Date.now()}`,
+					type: 'stream',
+				});
+
+				const updateStatus = await User.updateOne(
+					{ _id: req.user },
+					{ backdrop: response.data.link }
+				);
+
+				if (updateStatus.modifiedCount === 1) {
+					return res.send({
+						message: 'Backdrop updated successfully!',
+					});
+				}
+			} else {
+				const avatarResponse = await client.upload({
+					image: avatar[0].buffer,
+					name: `avatar_${user.firstName}_${
+						user.lastName
+					}_${Date.now()}`,
+					type: 'stream',
+				});
+				const backdropResponse = await client.upload({
+					image: backdrop[0].buffer,
+					name: `backdrop_${user.firstName}_${
+						user.lastName
+					}_${Date.now()}`,
+					type: 'stream',
+				});
+
+				const updateStatus = await User.updateOne(
+					{ _id: req.user },
+					{
+						avatar: avatarResponse.data.link,
+						backdrop: backdropResponse.data.link,
+					}
+				);
+
+				if (updateStatus.modifiedCount === 1) {
+					return res.send({
+						message: 'Profile updated successfully!',
+					});
+				}
+			}
+		} catch (err) {
+			return res
+				.status(500)
+				.send({ error: 'An unexpected error occurred', details: err });
+		}
+	}
+);
 
 router.post('/logout', async (req, res) => {
 	try {
