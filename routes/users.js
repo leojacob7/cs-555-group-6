@@ -13,8 +13,8 @@ const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 const transporter = nodemailer.createTransport({
 	service: 'Gmail',
 	auth: {
-	  user: 'kanishk.sharma2408@gmail.com',
-	  pass: 'nekvngnekflbpohc',
+	  user: process.env.EMAIL,
+	  pass: process.env.EMAIL_PASSWORD,
 	},
   });
 
