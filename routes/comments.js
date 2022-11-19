@@ -43,6 +43,95 @@ router.post('/', async (req, res) => {
 	}
 });
 
+// edit a comment
+router.post('/edit', verifyToken, async (req, res) => {
+	const commentId = req.body.comment;
+	const commentTitle = req.body.commentTitle;
+
+	if (!commentId) {
+		return res.status(400).send({
+			error: 'CommentID must be provided!',
+		});
+	}
+
+	if (!commentTitle) {
+		return res.status(400).send({
+			error: 'Updated comment title must be provided!',
+		});
+	}
+
+	try {
+		if (ObjectId.isValid(commentId)) {
+			const comment = await Comment.findById(commentId);
+			if (!comment) {
+				return res
+					.status(404)
+					.send({ error: 'No such comment exists!' });
+			}
+
+			if (comment.commentTitle === commentTitle.trim()) {
+				return res.status(400).send({ error: 'No changes were made' });
+			}
+
+			const updateStatus = await Comment.updateOne(
+				{ _id: commentId },
+				{
+					commentTitle: commentTitle.trim(),
+				}
+			);
+
+			if (updateStatus.modifiedCount === 1) {
+				const updatedComment = await Comment.findById(commentId);
+				return res.send({ comment: updatedComment });
+			}
+		} else {
+			return res
+				.status(400)
+				.send({ error: 'CommentID is not a valid ObjectId' });
+		}
+	} catch (err) {
+		return res
+			.status(500)
+			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
+
+// delete a comment
+router.post('/delete', verifyToken, async (req, res) => {
+	const commentId = req.body.comment;
+
+	if (!commentId) {
+		return res.status(400).send({
+			error: 'CommentID must be provided!',
+		});
+	}
+
+	try {
+		if (ObjectId.isValid(commentId)) {
+			const comment = await Comment.findById(commentId);
+			if (!comment) {
+				return res
+					.status(404)
+					.send({ error: 'No such comment exists!' });
+			}
+
+			const deleteStatus = await Comment.deleteOne({ _id: commentId });
+
+			if (deleteStatus.modifiedCount === 1) {
+				return res.send({ message: 'Comment deleted successfully!' });
+			}
+		} else {
+			return res
+				.status(400)
+				.send({ error: 'CommentID is not a valid ObjectId' });
+		}
+	} catch (err) {
+		return res
+			.status(500)
+			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
+
 // get replies of a comment (depth 1)
 router.post('/replies', async (req, res) => {
 	const commentId = req.body.comment;
