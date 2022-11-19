@@ -1,18 +1,42 @@
 import { Avatar, Box, Button, Typography, TextField } from '@mui/joy'
 import { Divider, Stack } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 import SendIcon from '@mui/icons-material/Send'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import Comments from './Comments'
+import { useAxios } from '../utils/apiCalls'
+import { useAuth } from '../context/userContext'
 // import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
-  const [likedPost, setLikedPost] = React.useState(post.currentUserLike)
+  const { user } = useAuth()
+  const [likedPost, setLikedPost] = React.useState(false)
+  const [likeCounter, setLikeCounter] = React.useState(post.likes.length)
+  const { operation } = useAxios()
+
+  useEffect(() => {
+    const isLikedPost = post.likes.some(like => {
+      return user._id === like._id
+    })
+    setLikedPost(isLikedPost)
+  }, [post, user])
+
   const likePost = e => {
-    setLikedPost(!likedPost)
-    // TODO: make a BE call to like or unlike a post
+    const payload = {
+      post: post._id
+    }
+    operation('posts/like', payload).then(() => {
+      if (!likedPost) {
+        setLikeCounter(likeCounter + 1)
+      } else {
+        setLikeCounter(likeCounter - 1)
+      }
+      setLikedPost(!likedPost)
+
+      !likedPost && setLikeCounter(likeCounter + 1)
+    })
   }
 
   return (
@@ -55,13 +79,28 @@ const Post = ({ post }) => {
           </Typography>
         </Box>
         <Divider sx={{ width: '100%', marginY: '2%' }} />
-        <Stack direction='row' spacing={2}>
+        <Stack
+          direction='row'
+          spacing={2}
+          justifyContent='center'
+          alignItems='center'
+          width='5rem'
+        >
           <Button
-            sx={{ marginBottom: '10%' }}
+            sx={{
+              marginBottom: '10%',
+              display: 'flex',
+              alignItems: 'space-between',
+              justifyContent: 'space-between',
+              width: '5rem'
+            }}
             variant='soft'
             color='primary'
             onClick={likePost}
           >
+            <Typography level='body1' component='p' sx={{ marginY: '10%' }}>
+              {likeCounter}
+            </Typography>
             {likedPost ? (
               <ThumbUpIcon color='secondary' />
             ) : (
