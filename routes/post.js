@@ -8,8 +8,10 @@ const verifyToken = require('../utils/verifyToken');
 
 router.get('/', async (req, res) => {
 	try {
-		const posts = await Post.find().populate(['user', 'likes', 'comments']);
-
+		const posts = await Post.find()
+			.populate(['user', 'likes', 'comments'])
+			.sort({ created: -1 });
+		console.log('>>', posts);
 		return res.send({ posts });
 	} catch (err) {
 		return res
@@ -19,6 +21,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/new-post', verifyToken, async (req, res) => {
+	console.log('req.body', req.body);
 	const userId = req.user;
 	const title = req.body.title;
 

@@ -26,7 +26,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   //   const [error, setError] = useState(null)
   const [isLoading, setLoading] = useState(false)
-  const [data, error, setError, loading, operation] = useAxios()
+  const { data, error, setError, loading, operation } = useAxios()
   const { session } = useAuth()
 
   const handleSignUp = async e => {

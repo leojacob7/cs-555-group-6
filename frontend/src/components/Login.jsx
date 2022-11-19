@@ -23,7 +23,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   // const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(false)
-  const [data, error, setError, loading, operation] = useAxios()
+  const { data, error, setError, loading, operation } = useAxios()
 
   useEffect(() => {}, [username, password])
 
