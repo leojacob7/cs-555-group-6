@@ -16,18 +16,16 @@ export const UserProvider = ({ children }) => {
   const [session, setSession] = useState(parsedSessionValue)
   const [user, setUser] = useState(parsedUserValue)
 
-  const [, error, setError, loading, operation] = useAxios()
+  // const [, error, setError, loading, operation] = useAxios()
 
   useEffect(() => {
     localStorage.setItem('session', session)
     localStorage.setItem('user', JSON.stringify(user))
   }, [user, session])
 
-  console.log('>>', session)
-
   return (
     <AuthContext.Provider
-      value={{ session, user, error, setUser, setError, setSession }}
+      value={{ session, user, error: '', setUser, setError: null, setSession }}
     >
       {children}
     </AuthContext.Provider>

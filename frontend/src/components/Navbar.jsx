@@ -16,24 +16,28 @@ import { Stack } from '@mui/material'
 import AddNewPost from './AddNewPost'
 import { useAuth } from '../context/userContext'
 import { useNavigate } from 'react-router-dom'
+import { useAxios } from '../utils/apiCalls'
 
 export default function Navbar () {
   // for menu list
   const [anchorEl, setAnchorEl] = useState(null)
+  // const [, error, setError, loading, operation] = useAxios()
   const navigate = useNavigate()
-  const { setSession, user } = useAuth()
+  const { setSession, setUser, user } = useAuth()
   const open = Boolean(anchorEl)
   const handleClick = event => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
     setAnchorEl(null)
-    navigate('/login')
   }
 
   const handleLogout = () => {
+    // operation('logout')
     setAnchorEl(null)
     setSession(null)
+    setUser(null)
+    navigate('/login')
   }
 
   return (

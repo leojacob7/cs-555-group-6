@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Posts } from './Posts'
 import moment from 'moment'
 
@@ -14,59 +14,42 @@ import Navbar from './Navbar'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import { useAxios, useAxiosGet } from '../utils/apiCalls'
+import axios from '../utils/axios'
+import AddNewPost from './AddNewPost'
+import CircularProgress from '@mui/material/CircularProgress'
 
 // import Profile from './Profile';
 
 const HomePage = () => {
-  const test_posts = [
-    {
-      id: 1,
-      title: 'Test post!',
-      posted: moment(Date.now()),
-      currentUserLike: true,
-      user: {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'jdoe'
-      }
-    },
-    {
-      id: 2,
-      title: "What's up?",
-      posted: moment(Date.now()),
-      user: {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'jdoe'
-      }
-    },
-    {
-      id: 3,
-      title: 'Organizing a meeting today',
-      posted: moment(Date.now()),
-      user: {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'jdoe'
-      }
-    },
-    {
-      id: 4,
-      title: 'How was your day?',
-      posted: moment(Date.now()),
-      user: {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'jdoe'
-      }
-    }
-  ]
+  const [loadingPosts, setLoadingPosts] = useState(false)
+  const { data, setLoading, loading } = useAxiosGet('posts', null, 'GET')
 
-  const [posts, setPosts] = useState([...test_posts])
+  // const [error, setError] = useState('')
+  // const [loading, setLoading] = useState('')
+  // const [data, setData] = useState('')
+  // const url = 'posts'
+  // const param = null
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:4000/${url}`, param)
+  //     .then(response => {
+  //       // if (isCurrent.current)
+  //       console.log('In success block', response)
+  //       setData(response.data)
+  //     })
+  //     .catch(err => {
+  //       console.log('In error block', err)
+  //       setError(err?.response?.data?.error)
+  //       setLoading(false)
+  //     })
+  // }, [])
+
+  // console.log('DATA', data)
+
+  // const [posts, setPosts] = useState(data?.posts || [])
+
   return (
     <Box>
       <Navbar />
@@ -85,6 +68,7 @@ const HomePage = () => {
           <Typography level='display2' component='h1'>
             Home
           </Typography>
+          <AddNewPost updatePosts={setLoading} isUpdatingPost={loading} />
           <Sheet sx={{ marginY: 3, width: '100%' }}>
             <Stack
               direction='row'
@@ -122,7 +106,11 @@ const HomePage = () => {
           </Sheet>
 
           <Box sx={{ width: '100%' }} py={2}>
-            <Posts posts={posts} />
+            <Posts
+              posts={data?.posts}
+              updatePost={setLoading}
+              setLoadingPosts={setLoadingPosts}
+            />
           </Box>
         </Stack>
 
