@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 	backdrop: { type: String, default: null },
 	bio: { type: String, max: 100, default: null },
 	password: { type: String, required: true, max: 1024 },
-	confirmed: {type: Boolean, defaultValue: false},
+	confirmed: { type: Boolean, default: true },
 	created: { type: Date, default: Date.now },
 });
 

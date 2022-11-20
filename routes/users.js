@@ -11,17 +11,16 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 const transporter = nodemailer.createTransport({
-	service: 'Gmail',
+	service: 'gmail',
 	auth: {
-	  user: process.env.EMAIL,
-	  pass: process.env.EMAIL_PASSWORD,
+		user: process.env.EMAIL,
+		pass: process.env.EMAIL_PASSWORD,
 	},
-  });
+});
 
 // router.route('/login').post(async (request, response) => {
 // 	const userName = request.body.username;
@@ -59,12 +58,13 @@ router.post('/login', async (req, res) => {
 		}
 
 		const user = await User.findOne({ email });
+		console.log('>>', { user });
 
 		// verify confirmation
 		if (!user.confirmed) {
 			return res
 				.status(404)
-				.send({ error: 'Please confirm your email to login'});
+				.send({ error: 'Please confirm your email to login' });
 		}
 
 		if (!user) {
@@ -139,18 +139,23 @@ router.post('/register', async (req, res) => {
 		});
 		await newUser.save();
 
+		console.log({
+			user: process.env.EMAIL,
+			pass: process.env.EMAIL_PASSWORD,
+		});
+
 		const url = `http://localhost:3000/signup/confirmation/}`;
 		transporter.sendMail({
 			to: email,
 			subject: 'Confirm Email',
 			html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
 		});
-		
-		console.log("Email sent")
+
+		console.log('Email sent');
 
 		return res.send({ user: newUser });
 	} catch (err) {
-		console.log({ err });
+		console.log('error >>', { err });
 		return res
 			.status(500)
 			.send({ error: 'An unexpected error occurred', details: err });

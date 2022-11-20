@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-// console.log('>>test', localStorage.getItem('session'));
-if (localStorage.getItem('session'))
-	axios.defaults.headers.common = {
-		Authorization: `${localStorage.getItem('session')}`,
-	};
-export default axios;
+const axiosApiInstance = axios.create();
+
+axiosApiInstance.interceptors.request.use((config) => {
+	console.log('>>axios token', localStorage.getItem('session'));
+	if (localStorage.getItem('session')) {
+		const token = `${localStorage.getItem('session')}`;
+		config.headers['Authorization'] = token;
+	}
+	return config;
+});
+export default axiosApiInstance;
