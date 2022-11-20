@@ -63,7 +63,7 @@ const Post = ({ post }) => {
           />
           <Stack direction='column'>
             <Typography level='body1' component='strong'>
-              {post.user.firstName} {post.user.lastName}
+              {post?.user?.firstName} {post?.user?.lastName}
             </Typography>
             <Typography as='u' fontSize='sm'>
               {/* <Link to={'/profile'}>@{post.user.username}</Link> */}
