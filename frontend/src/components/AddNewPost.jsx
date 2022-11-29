@@ -30,7 +30,7 @@ const AddNewPost = () => {
 				onClick={() => setOpen(true)}>
 				Add new post
 			</Button>
-
+			
 			<Modal onClose={() => setOpen(false)} open={open}>
 				<ModalDialog aria-labelledby='modal-title'>
 					<Stack direction='column' spacing={4}>

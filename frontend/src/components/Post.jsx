@@ -8,6 +8,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
 import AcUnitRoundedIcon from '@mui/icons-material/AcUnitRounded';
 import Comments from "./Comments";
 import Share from "./Share";
+import { deleteComment } from '../api';
 // import { Link } from 'react-router-dom';
 
 const Post = ({ post }) => {
@@ -20,7 +21,9 @@ const Post = ({ post }) => {
   const award = e => {
     setawarded(!awarded)
   }
+
   
+
 	return (
 		
 		<Box borderWidth='1px' borderRadius='lg' px={4} py={3} boxShadow={'md'}>
@@ -46,12 +49,15 @@ const Post = ({ post }) => {
 						<Typography level='body2'>
 							{moment(post.posted).fromNow()}
 						</Typography>
+						
 					</Stack>
 				</Stack>
 				<Box py={2}>
 					<Typography level='body1' component='p'>
 						{post.title}
 					</Typography>
+
+					
 				</Box>
 		<Divider sx={{ width: '100%', marginY: '2%' }} />
 		
@@ -81,6 +87,10 @@ const Post = ({ post }) => {
               <AcUnitRoundedIcon color='secondary' />
             )}
 		  </Button>
+
+		  
+
+		  
 			
 			
 
@@ -95,5 +105,6 @@ const Post = ({ post }) => {
 		</Box>
 	);
 };
+
 
 export default Post

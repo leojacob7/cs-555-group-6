@@ -17,6 +17,7 @@ import AddNewPost from './AddNewPost'
 import { useAuth } from '../context/userContext'
 import { useNavigate } from 'react-router-dom'
 
+
 export default function Navbar () {
   // for menu list
   const [anchorEl, setAnchorEl] = useState(null)
@@ -47,6 +48,7 @@ export default function Navbar () {
         <Box>Logo</Box>
 
         <Stack direction='row' spacing={2}>
+
           <AddNewPost />
           {/* <Button onClick={toggleColorMode}>
 								{colorMode === 'light' ? (
