@@ -66,7 +66,14 @@ const HomePage = () => {
     }
   ]
 
+  
+
   const [posts, setPosts] = useState([...test_posts])
+
+  const handleDelete = (postId) => {
+    setPosts(posts => posts.filter(({id}) => id !== postId));
+}
+
   return (
     <Box>
       <Navbar />
@@ -122,7 +129,7 @@ const HomePage = () => {
           </Sheet>
 
           <Box sx={{ width: '100%' }} py={2}>
-            <Posts posts={posts} />
+            <Posts posts={posts} handleDelete={handleDelete} />
           </Box>
         </Stack>
 
