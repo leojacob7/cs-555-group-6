@@ -6,6 +6,8 @@ const router = express.Router();
 const userData = require('../data/users');
 const User = require('../models/user');
 const verifyToken = require('../utils/verifyToken');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const multer = require('multer');
 const storage = multer.memoryStorage();
@@ -15,7 +17,7 @@ const nodemailer = require('nodemailer');
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 const transporter = nodemailer.createTransport({
-	service: 'gmail',
+	service: 'Gmail',
 	auth: {
 		user: process.env.EMAIL,
 		pass: process.env.EMAIL_PASSWORD,
