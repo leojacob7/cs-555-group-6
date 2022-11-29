@@ -9,7 +9,6 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import ModalClose from '@mui/joy/ModalClose';
 import FileUploadComponent from './fileUpload.component';
 import { Box, Divider, Typography } from '@mui/joy';
-import FileUploadComponent from './fileUpload.component';
 
 const AddNewPost = () => {
 	const [open, setOpen] = useState(false);
