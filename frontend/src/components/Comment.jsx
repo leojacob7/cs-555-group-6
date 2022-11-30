@@ -1,6 +1,7 @@
 import CommentForm from "./CommentForm";
 import { Avatar, Box, Typography} from '@mui/joy';
-import { Stack } from '@mui/material';
+import {  Grid, IconButton, Paper, Stack } from '@mui/material';
+import Share from "./Share";
 
 const Comment = ({ 
   comment,
@@ -14,20 +15,20 @@ const Comment = ({
   currentUserId,
 
 }) => {
-    const isEditing =
-    activeComment &&
-    activeComment.id === comment.id &&
-    activeComment.type === "editing";
-    const isReplying =
-    activeComment &&
-    activeComment.id === comment.id &&
-    activeComment.type === "replying";
-    const canDelete =
-    currentUserId === comment.userId && replies.length === 0;
-    const canEdit = currentUserId === comment.userId;
-    const canReply = Boolean(currentUserId);
-    const createdAt = new Date(comment.createdAt).toLocaleDateString();
-    const replyId = parentId ? parentId : comment.id;
+  const isEditing =
+  activeComment &&
+  activeComment.id === comment.id &&
+  activeComment.type === "editing";
+  const isReplying =
+  activeComment &&
+  activeComment.id === comment.id &&
+  activeComment.type === "replying";
+ 
+  const canDelete = currentUserId === comment.userId;
+
+  const canEdit = currentUserId === comment.userId;
+  const replyId = parentId ? parentId : comment.id;
+  const createdAt = new Date(comment.createdAt).toLocaleDateString();
    
 
   return (
@@ -36,38 +37,80 @@ const Comment = ({
         <Avatar/>
       
       <Stack spacing={2}>
-      <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2}>
         <Typography component='strong'>{comment.username}</Typography>
           <Typography>{createdAt}</Typography>
         </Stack>
-        <Typography >{comment.body} </Typography>
+    
+        <Stack direction="column" spacing={2}>
+       
+       
+        {!isEditing && <div className="comment-text">{comment.body}</div>}
+        {isEditing && (
+          <CommentForm
+            submitLabel="Update"
+            hasCancelButton
+            initialText={comment.body}
+            handleSubmit={(text) => updateComment(text, comment.id)}
+            handleCancel={() => {
+              setActiveComment(null);
+            }}
+          />
+        )}
+       
         <Stack direction="row" spacing={2}>
-        <div className="comment-actions"> Reply </div>
-        <div className="comment-actions"> Edit </div>
-        <div className="comment-actions"> Delete </div>
-        </Stack>
-        <div className="comment-actions">
-          {canReply && (
+           
             <div
-            className="comment-actions"
-            onClick={() => 
-              setActiveComment ({id : comment.id, type: "replying "})
-            }
-          > Reply </div>)}
-          {isReplying && (
-            <CommentForm
-              submitLabel="Reply"
-              handleSubmit={(text) => addComment(text, replyId)}
-            />
-          )}
+              className="comment-action"
+              onClick={() =>
+                setActiveComment({ id: comment.id, type: "replying" })
+              }
+            > Reply 
+            
+            </div>
           
-        </div>
+
+      
+            <div
+              className="comment-action"
+              onClick={() => deleteComment(comment.id)}
+            >
+              Delete
+            </div>
+    
+                
+         
+            <div
+              className="comment-action"
+              onClick={() =>
+                setActiveComment({ id: comment.id, type: "editing" })
+              }
+            >
+              Edit
+              
+            </div>
+
+            
+              
+            <Share label="Share" />
+            
+              
+              
+            
+
+          
+          
+          
+          
+        </Stack>
+       
         {isReplying && (
           <CommentForm
             submitLabel="Reply"
             handleSubmit={(text) => addComment(text, replyId)}
-          />)}
-
+          />
+        )}
+         </Stack>
         {replies.length > 0 && (
           <Stack direction="row" spacing={2} >
             {replies.map((reply) => (
