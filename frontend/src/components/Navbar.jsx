@@ -17,10 +17,13 @@ import AddNewPost from './AddNewPost'
 import { useAuth } from '../context/userContext'
 import { useNavigate } from 'react-router-dom'
 import { useAxios } from '../utils/apiCalls'
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications'
+import { useNotification } from '../context/notificationsContext'
 
 export default function Navbar () {
   // for menu list
   const [anchorEl, setAnchorEl] = useState(null)
+  const { isNotificationEnabled, setIsNotificationEnabled } = useNotification()
   // const [, error, setError, loading, operation] = useAxios()
   const navigate = useNavigate()
   const { setSession, setUser, user } = useAuth()
@@ -50,8 +53,11 @@ export default function Navbar () {
       >
         <Box>Logo</Box>
 
-        <Stack direction='row' spacing={2}>
-          <AddNewPost />
+        <Stack direction='row' spacing={2} alignItems='center'>
+          <CircleNotificationsIcon
+            color='secondary'
+            onClick={e => setIsNotificationEnabled(!isNotificationEnabled)}
+          />
           {/* <Button onClick={toggleColorMode}>
 								{colorMode === 'light' ? (
 									<MoonIcon />

@@ -18,11 +18,14 @@ import { useAxios, useAxiosGet } from '../utils/apiCalls'
 import axios from '../utils/axios'
 import AddNewPost from './AddNewPost'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useNotification } from '../context/notificationsContext'
+import NotificationSideBar from './NotificationSideBar'
 
 // import Profile from './Profile';
 
 const HomePage = () => {
   const [loadingPosts, setLoadingPosts] = useState(false)
+  const { isNotificationEnabled } = useNotification()
   const { data, setLoading, loading } = useAxiosGet('posts', null, 'GET')
 
   // const [error, setError] = useState('')
@@ -114,7 +117,9 @@ const HomePage = () => {
           </Box>
         </Stack>
 
-        <Sheet sx={{ padding: 5 }}>
+        <Sheet
+          sx={{ padding: 5, display: { xs: 'none', lg: 'block', xl: 'none' } }}
+        >
           <Stack
             direction='column'
             alignItems='flex-start'
@@ -155,6 +160,11 @@ const HomePage = () => {
             </Stack>
           </Stack>
         </Sheet>
+        {
+          <Stack spacing={2}>
+            <NotificationSideBar open={isNotificationEnabled} />
+          </Stack>
+        }
       </Stack>
     </Box>
   )
