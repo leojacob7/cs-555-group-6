@@ -14,6 +14,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 const nodemailer = require('nodemailer');
+const { ConnectionClosedEvent } = require('mongodb');
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf';
 
 const transporter = nodemailer.createTransport({

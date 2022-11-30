@@ -25,6 +25,7 @@ router.post('/new-post', verifyToken, async (req, res) => {
 	const userId = req.user;
 	const title = req.body.title;
 
+
 	if (!title) {
 		return res.status(400).send({
 			error: 'Post title must be provided!',
