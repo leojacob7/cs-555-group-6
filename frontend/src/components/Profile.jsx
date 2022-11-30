@@ -21,54 +21,58 @@ import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import MilitaryTechRoundedIcon from '@mui/icons-material/MilitaryTechRounded';
 import FileUploadComponent from './fileUpload.component';
 
-const Profile = () =>  {
-	const test_posts = [
-		{
-			id: 1,
-			title: 'Test post',
-			posted: moment(Date.now()),
-			user: {
-				id: 1,
-				firstName: 'John',
-				lastName: 'Doe',
-				username: 'jdoe',
-			},
-		},
-		{
-			id: 2,
-			title: "What's up?",
-			posted: moment(Date.now()),
-			user: {
-				id: 1,
-				firstName: 'John',
-				lastName: 'Doe',
-				username: 'jdoe',
-			},
-		},
-		{
-			id: 3,
-			title: 'Organizing a meeting today',
-			posted: moment(Date.now()),
-			user: {
-				id: 1,
-				firstName: 'John',
-				lastName: 'Doe',
-				username: 'jdoe',
-			},
-		},
-		{
-			id: 4,
-			title: 'How was your day?',
-			posted: moment(Date.now()),
-			user: {
-				id: 1,
-				firstName: 'John',
-				lastName: 'Doe',
-				username: 'jdoe',
-			},
-		},
-	];
 
+
+const test_posts = [
+	{
+		id: 1,
+		title: 'Test post',
+		posted: moment(Date.now()),
+		user: {
+			id: 1,
+			firstName: 'John',
+			lastName: 'Doe',
+			username: 'jdoe',
+		},
+	},
+	{
+		id: 2,
+		title: "What's up?",
+		posted: moment(Date.now()),
+		user: {
+			id: 1,
+			firstName: 'John',
+			lastName: 'Doe',
+			username: 'jdoe',
+		},
+	},
+	{
+		id: 3,
+		title: 'Organizing a meeting today',
+		posted: moment(Date.now()),
+		user: {
+			id: 1,
+			firstName: 'John',
+			lastName: 'Doe',
+			username: 'jdoe',
+		},
+	},
+	{
+		id: 4,
+		title: 'How was your day?',
+		posted: moment(Date.now()),
+		user: {
+			id: 1,
+			firstName: 'John',
+			lastName: 'Doe',
+			username: 'jdoe',
+		},
+	},
+];
+
+
+const Profile = () =>  {
+	
 	let [text, setText] = useState()
 	const [posts, setPosts] = useState([...test_posts]);
 	return (
@@ -110,7 +114,15 @@ const Profile = () =>  {
 									<Box> 
 										Frontend Developer
 									</Box>
-								
+									
+									<Button
+            
+                color='primary'
+                size='sm'
+                variant='soft'
+              >
+                Follow
+              </Button>
 								</Stack>
 
 							</Stack>
