@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import Avatar from '@mui/joy/Avatar';
@@ -22,58 +22,10 @@ import MilitaryTechRoundedIcon from '@mui/icons-material/MilitaryTechRounded';
 
 
 
-const test_posts = [
-	{
-		id: 1,
-		title: 'Test post',
-		posted: moment(Date.now()),
-		user: {
-			id: 1,
-			firstName: 'John',
-			lastName: 'Doe',
-			username: 'jdoe',
-		},
-	},
-	{
-		id: 2,
-		title: "What's up?",
-		posted: moment(Date.now()),
-		user: {
-			id: 1,
-			firstName: 'John',
-			lastName: 'Doe',
-			username: 'jdoe',
-		},
-	},
-	{
-		id: 3,
-		title: 'Organizing a meeting today',
-		posted: moment(Date.now()),
-		user: {
-			id: 1,
-			firstName: 'John',
-			lastName: 'Doe',
-			username: 'jdoe',
-		},
-	},
-	{
-		id: 4,
-		title: 'How was your day?',
-		posted: moment(Date.now()),
-		user: {
-			id: 1,
-			firstName: 'John',
-			lastName: 'Doe',
-			username: 'jdoe',
-		},
-	},
-];
-
 
 const Profile = () =>  {
-	
 	let [text, setText] = useState()
-	const [posts, setPosts] = useState([...test_posts]);
+	// const [posts, setPosts] = useState([...test_posts]);
 	return (
 		<Box>
 			 <Navbar></Navbar>
@@ -113,7 +65,6 @@ const Profile = () =>  {
 									<Box> 
 										Frontend Developer
 									</Box>
-									
 									<Button
             
                 color='primary'
