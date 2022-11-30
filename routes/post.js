@@ -62,6 +62,51 @@ router.post('/new-post', verifyToken, async (req, res) => {
 	}
 });
 
+router.delete('/delete', verifyToken, async (req, res) => {
+	const userId = req.user;
+	const postId = req.body.post;
+
+	if (!postId) {
+		return res.status(400).send({
+			error: 'PostId must be provided!',
+		});
+	}
+
+	try {
+		if (ObjectId.isValid(postId)) {
+			const userExists = await User.findById(userId);
+
+			if (!userExists) {
+				return res
+					.status(404)
+					.send({ error: 'No such user was found!' });
+			}
+
+			const post = await Post.findById(postId);
+
+			if (!post) {
+				return res
+					.status(404)
+					.send({ error: 'No such post was found!' });
+			}
+
+			const deleteStatus = await Post.deleteOne({ _id: postId });
+
+			if (deleteStatus.deletedCount === 1) {
+				return res.send({ message: 'Post deleted successfully!' });
+			}
+		} else {
+			return res
+				.status(400)
+				.send({ error: 'PostID is not a valid ObjectId' });
+		}
+	} catch (err) {
+		return res
+			.status(500)
+			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
+
 router.post('/like', verifyToken, async (req, res) => {
 	const userId = req.user;
 	const postId = req.body.post;
