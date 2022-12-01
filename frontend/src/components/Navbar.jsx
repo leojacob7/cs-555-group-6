@@ -41,6 +41,11 @@ export default function Navbar() {
 		navigate('/login');
 	};
 
+	const handleProfile = () => {
+		setAnchorEl(null);
+		navigate('/update-profile');
+	};
+
 	return (
 		<Sheet variant='soft' color='neutral' sx={{ paddingX: 4, paddingY: 3 }}>
 			<Stack
@@ -90,8 +95,8 @@ export default function Navbar() {
 								<MenuItem onClick={handleClose}>
 									Your Servers
 								</MenuItem>
-								<MenuItem onClick={handleClose}>
-									Account Settings
+								<MenuItem onClick={handleProfile}>
+									Update profile
 								</MenuItem>
 								<MenuItem onClick={handleLogout}>
 									Logout

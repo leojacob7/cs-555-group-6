@@ -17,26 +17,31 @@ const App = () => {
 			<UserProvider>
 				<BrowserRouter>
 					<Routes>
-						<Route path="/register" element={<SignUp />} />
-						<Route path="/login" element={<Login />} />
+						<Route path='/register' element={<SignUp />} />
+						<Route path='/login' element={<Login />} />
 						<Route
-							path="/"
+							path='/'
 							element={
 								<>
 									{/* <AuthRoute> */}
-										<Outlet />
+									<Outlet />
 									{/* </AuthRoute> */}
 								</>
-							}
-						>
-							<Route index path="/" element={<HomePage />} />
+							}>
+							<Route index path='/' element={<HomePage />} />
 
-							<Route path="/profile" element={<Profile />} />
-							<Route path="/update-profile" element={<ProfileUpdate />} />
-							<Route path="*" element={<PageNotFound />} />
+							<Route
+								path='/profile/:userId'
+								element={<Profile />}
+							/>
+							<Route
+								path='/update-profile'
+								element={<ProfileUpdate />}
+							/>
+							<Route path='*' element={<PageNotFound />} />
 						</Route>
 
-						<Route path="*" element={<PageNotFound />} />
+						<Route path='*' element={<PageNotFound />} />
 					</Routes>
 				</BrowserRouter>
 			</UserProvider>

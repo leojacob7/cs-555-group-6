@@ -53,9 +53,7 @@ const Post = ({ post }) => {
 				<Stack>
 					<Avatar
 						size='md'
-						src={
-							'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
-						}
+						src={post.user.avatar}
 						alt='Author'
 						sx={{
 							border: '2px solid white',
@@ -65,7 +63,7 @@ const Post = ({ post }) => {
 						<Link
 							component={RouterLink}
 							level='body1'
-							to='/profile'>
+							to={`/profile/${post.user._id}`}>
 							<Typography level='body1' component='strong'>
 								{post?.user?.firstName} {post?.user?.lastName}
 							</Typography>
@@ -74,7 +72,7 @@ const Post = ({ post }) => {
 							{/* <Link to={'/profile'}>@{post.user.username}</Link> */}
 						</Typography>
 						<Typography level='body2'>
-							{moment(post.posted).fromNow()}
+							{moment(post.created).fromNow()}
 						</Typography>
 					</Stack>
 				</Stack>

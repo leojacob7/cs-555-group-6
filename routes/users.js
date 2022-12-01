@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const userData = require('../data/users');
 const User = require('../models/user');
+const Post = require('../models/post');
+const { ObjectId } = require('mongodb');
 const verifyToken = require('../utils/verifyToken');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -24,30 +26,6 @@ const transporter = nodemailer.createTransport({
 		pass: process.env.EMAIL_PASSWORD,
 	},
 });
-
-// router.route('/login').post(async (request, response) => {
-// 	const userName = request.body.username;
-// 	const passwd = request.body.password;
-
-// 	try {
-// 		if (!userName || !passwd) {
-// 			throw 'Username, Password (both) have to be provided';
-// 		}
-
-// 		userData.userValidationChk(userName);
-// 		userData.userPasswordValidationChk(passwd);
-
-// 		const usrLoginChkResponse = await userData.loginCheck(userName, passwd);
-
-// 		if (usrLoginChkResponse === '{authenticated: true}') {
-// 			request.session.user = { username: userName };
-// 			response.status(200).json('User Succesfully logged in');
-// 		}
-// 	} catch (e) {
-// 		response.status(400).json('Error logging in : ' + e);
-// 		return;
-// 	}
-// });
 
 router.post('/login', async (req, res) => {
 	const email = req.body.email;
@@ -147,7 +125,7 @@ router.post('/register', async (req, res) => {
 			pass: process.env.EMAIL_PASSWORD,
 		});
 
-		const url = `http://localhost:3000/signup/confirmation/}`;
+		const url = `http://localhost:3000/signup/confirmation/`;
 		transporter.sendMail({
 			to: email,
 			subject: 'Confirm Email',
@@ -159,6 +137,44 @@ router.post('/register', async (req, res) => {
 		return res.send({ user: newUser });
 	} catch (err) {
 		console.log('error >>', { err });
+		return res
+			.status(500)
+			.send({ error: 'An unexpected error occurred', details: err });
+	}
+});
+
+router.get('/profile/:userId', async (req, res) => {
+	const userId = req.params.userId;
+
+	if (!userId) {
+		return res.status(400).send({ error: 'UserId must be provided!' });
+	}
+
+	try {
+		if (ObjectId.isValid(userId)) {
+			const user = await User.findById(userId);
+
+			if (!user) {
+				return res
+					.status(404)
+					.send({ error: 'No such user was found!' });
+			}
+
+			const posts = await Post.find({ user: user._id })
+				.populate(['user', 'likes', 'comments'])
+				.populate({
+					path: 'comments',
+					populate: { path: 'user', model: 'User' },
+				})
+				.sort({ created: -1 });
+
+			return res.send({ user, posts });
+		} else {
+			return res
+				.status(400)
+				.send({ error: 'UserID is not a valid ObjectId' });
+		}
+	} catch (err) {
 		return res
 			.status(500)
 			.send({ error: 'An unexpected error occurred', details: err });
@@ -239,6 +255,8 @@ router.post(
 					}_${Date.now()}`,
 					type: 'stream',
 				});
+
+				console.log(avatarResponse, backdropResponse);
 
 				const updateStatus = await User.updateOne(
 					{ _id: req.user },
