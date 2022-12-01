@@ -117,7 +117,12 @@ router.post('/delete', verifyToken, async (req, res) => {
 
 			const deleteStatus = await Comment.deleteOne({ _id: commentId });
 
-			if (deleteStatus.modifiedCount === 1) {
+			// Remove comment from parent comment replies
+			await Comment.findByIdAndUpdate(comment.parentComment, {
+				$pull: { replies: commentId },
+			});
+
+			if (deleteStatus.deletedCount === 1) {
 				return res.send({ message: 'Comment deleted successfully!' });
 			}
 		} else {

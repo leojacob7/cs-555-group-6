@@ -10,6 +10,10 @@ router.get('/', async (req, res) => {
 	try {
 		const posts = await Post.find()
 			.populate(['user', 'likes', 'comments'])
+			.populate({
+				path: 'comments',
+				populate: { path: 'user', model: 'User' },
+			})
 			.sort({ created: -1 });
 		console.log('>>', posts);
 		return res.send({ posts });
@@ -187,8 +191,6 @@ router.post('/comment', verifyToken, async (req, res) => {
 			});
 			const comment = await newComment.save();
 
-			await post.update({ $addToSet: { comments: comment._id } });
-
 			if (isReply) {
 				if (ObjectId.isValid(parentCommentId)) {
 					const parentComment = await Comment.findById(
@@ -210,6 +212,8 @@ router.post('/comment', verifyToken, async (req, res) => {
 					});
 				}
 			}
+
+			await post.update({ $addToSet: { comments: comment._id } });
 
 			return res.send({ comment });
 		} else {

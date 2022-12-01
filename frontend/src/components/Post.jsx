@@ -119,7 +119,7 @@ const Post = ({ post }) => {
 					<Stack direction='row' spacing={2}>
 						{/* <TextField fullWidth variant='soft' placeholder='Add a comment' /> */}
 						<Box sx={{ width: '100%', marginY: '2%' }}>
-							<Comments />
+							<Comments post={post} />
 						</Box>
 						<Button variant='soft'>
 							<SendIcon color='secondary' />
