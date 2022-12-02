@@ -6,8 +6,8 @@ const User = require('../models/user');
 const Comment = require('../models/comment');
 const verifyToken = require('../utils/verifyToken');
 
-router.get('/', async (req, res) => {
-	const sortBy = 'new';
+router.get('/:filter', async (req, res) => {
+	const sortBy = req.params.filter;
 
 	try {
 		const posts = await Post.find()

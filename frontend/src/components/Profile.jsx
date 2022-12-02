@@ -109,12 +109,12 @@ const Profile = () => {
 									{user.firstName} {user.lastName}
 								</Typography>
 								<Box>Frontend Developer</Box>
-								<Button
+								{/* <Button
 									color='primary'
 									size='sm'
 									variant='soft'>
 									Follow
-								</Button>
+								</Button> */}
 							</Stack>
 						</Stack>
 					</Box>

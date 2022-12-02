@@ -43,6 +43,11 @@ export default function Navbar() {
 
 	const handleProfile = () => {
 		setAnchorEl(null);
+		navigate(`/profile/${user._id}`);
+	};
+
+	const handleEditProfile = () => {
+		setAnchorEl(null);
 		navigate('/update-profile');
 	};
 
@@ -94,10 +99,10 @@ export default function Navbar() {
 								{`Hello ${user?.firstName}`}
 							</Typography>
 							<MenuList alignItems='center'>
-								<MenuItem onClick={handleClose}>
-									Your Servers
-								</MenuItem>
 								<MenuItem onClick={handleProfile}>
+									Your Profile
+								</MenuItem>
+								<MenuItem onClick={handleEditProfile}>
 									Update profile
 								</MenuItem>
 								<MenuItem onClick={handleLogout}>

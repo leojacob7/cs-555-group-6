@@ -9,6 +9,7 @@ const Post = require('../models/post');
 const { ObjectId } = require('mongodb');
 const verifyToken = require('../utils/verifyToken');
 const dotenv = require('dotenv');
+const _ = require('lodash');
 dotenv.config();
 
 const multer = require('multer');
@@ -279,6 +280,21 @@ router.post(
 		}
 	}
 );
+
+router.get('/top-accounts', verifyToken, async (req, res) => {
+	const posts = await Post.find();
+	const result = _.countBy(posts, 'user');
+	const userPostCount = _(result)
+		.toPairs()
+		.orderBy([1], ['desc'])
+		.fromPairs()
+		.value();
+	const userKeys = Object.keys(userPostCount).splice(0, 3);
+
+	const users = await User.find({ _id: { $in: userKeys } });
+
+	return res.send({ users });
+});
 
 router.post('/logout', async (req, res) => {
 	try {
