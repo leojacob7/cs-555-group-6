@@ -9,9 +9,11 @@ import Divider from '@mui/joy/Divider';
 import Navbar from './Navbar';
 
 import { Link } from 'react-router-dom';
+import { Alert } from '@mui/joy';
 
 const ProfileUpdate = () => {
 	const [files, setFiles] = useState([]);
+	const [response, setResponse] = useState(null);
 
 	function onFileUpload(event) {
 		event.preventDefault();
@@ -42,8 +44,12 @@ const ProfileUpdate = () => {
 
 		apiInstance
 			.post('http://localhost:4000/update-profile', formData)
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+			.then((res) =>
+				setResponse({ status: 'success', message: res.data.message })
+			)
+			.catch((err) =>
+				setResponse({ status: 'danger', message: err.data.error })
+			);
 	}
 
 	const [imageURLs, setImageURLs] = useState([]);
@@ -134,14 +140,16 @@ const ProfileUpdate = () => {
 						</Stack>
 					</Box>
 				</Stack>
-				<Stack spacing={4} alignItems='center' justify='center'>
-					<Button
-						variant='contained'
-						href='/profile'
-						size='large'
-						type='submit'>
+				<Stack spacing={4} p={2} alignItems='center' justify='center'>
+					<Button variant='solid' size='lg' type='submit'>
 						Submit
 					</Button>
+
+					{response && (
+						<Alert color={response.status} variant='soft'>
+							{response.message}
+						</Alert>
+					)}
 				</Stack>
 			</form>
 		</Box>

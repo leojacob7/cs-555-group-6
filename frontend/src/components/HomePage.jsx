@@ -110,7 +110,9 @@ const HomePage = () => {
 					</Box>
 				</Stack>
 
-				<Sheet sx={{ padding: 5 }}>{/* <TopAccounts /> */}</Sheet>
+				<Sheet sx={{ padding: 5 }}>
+					<TopAccounts />
+				</Sheet>
 			</Stack>
 		</Box>
 	);

@@ -190,10 +190,8 @@ router.post(
 		const avatar = req.files.avatar;
 		const backdrop = req.files.backdrop;
 
-		if (!avatar || !backdrop) {
-			return res
-				.status(400)
-				.send({ error: 'Avatar/Backdrop image must be provided!' });
+		if (!avatar && !backdrop) {
+			return res.send({ message: 'No changes were made.' });
 		}
 
 		try {
