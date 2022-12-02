@@ -7,15 +7,25 @@ const Comment = require('../models/comment');
 const verifyToken = require('../utils/verifyToken');
 
 router.get('/', async (req, res) => {
+	const sortBy = 'new';
+
 	try {
 		const posts = await Post.find()
 			.populate(['user', 'likes', 'comments'])
 			.populate({
 				path: 'comments',
 				populate: { path: 'user', model: 'User' },
-			})
-			.sort({ created: -1 });
-		console.log('>>', posts);
+			});
+
+		// sorting posts based on selected filter
+		if (sortBy === 'hot') {
+			posts.sort((a, b) => b.likes.length - a.likes.length);
+		} else if (sortBy === 'trending') {
+			posts.sort((a, b) => b.comments.length - a.comments.length);
+		} else if (sortBy === 'new') {
+			posts.sort((a, b) => b.created - a.created);
+		}
+
 		return res.send({ posts });
 	} catch (err) {
 		return res
@@ -25,10 +35,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/new-post', verifyToken, async (req, res) => {
-	console.log('req.body', req.body);
 	const userId = req.user;
 	const title = req.body.title;
-
 
 	if (!title) {
 		return res.status(400).send({
