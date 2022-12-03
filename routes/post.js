@@ -223,7 +223,11 @@ router.post('/comment', verifyToken, async (req, res) => {
 
 			await post.update({ $addToSet: { comments: comment._id } });
 
-			return res.send({ comment });
+			const addedComment = await Comment.findById(comment._id).populate(
+				'user'
+			);
+
+			return res.send({ comment: addedComment });
 		} else {
 			return res
 				.status(400)

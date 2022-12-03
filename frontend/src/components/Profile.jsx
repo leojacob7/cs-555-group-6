@@ -142,7 +142,7 @@ const Profile = () => {
 					</Box>
 				</Stack>
 
-				<Stack
+				{/* <Stack
 					direction='column'
 					padding={1}
 					alignItems='center'
@@ -218,7 +218,7 @@ const Profile = () => {
 							</Grid>
 						</Stack>
 					</Box>
-				</Stack>
+				</Stack> */}
 			</Stack>
 		</Box>
 	);

@@ -28,7 +28,7 @@ export const TopAccounts = () => {
 			</Box>
 
 			{data.users.map((user) => (
-				<Link to={`/profile/${user._id}`}>
+				<Link key={user._id} to={`/profile/${user._id}`}>
 					<Stack spacing={1}>
 						<Stack alignItems='center' justifyContent='center'>
 							<Avatar

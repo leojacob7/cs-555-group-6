@@ -1,37 +1,68 @@
-import TextField from "@material-ui/core/TextField";
-import React, { useState } from "react";
-import { Button, Paper } from "@material-ui/core";
-import { Stack } from "@mui/joy";
+import React, { useState } from 'react';
+import Button from '@mui/joy/Button';
+import TextField from '@mui/joy/TextField';
+import { Stack } from '@mui/joy';
+import SendIcon from '@mui/icons-material/Send';
+import axiosWithAuth from '../utils/axios';
 
+const CommentForm = ({
+	initialText,
+	post,
+	isReply,
+	parentComment,
+	rootComments,
+	setRootComments,
+	setIsReplying,
+}) => {
+	const [text, setText] = useState('' || initialText);
 
-const CommentForm = ( {
-    handleSubmit,
-    initialText = ""
-}
-) => {
-  const [text, setText] = useState(initialText);
-  const isTextareaDisabled = text.length === 0;
-  const onSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit(text);
-    setText("");
-  };
-  return (
-    <form onSubmit={onSubmit}>
-    <Stack direction="row" spacing={2}>
-    <TextField
-        onChange={(e) => setText(e.target.value)}
-        value={text}
-        fullWidth label={"Type comment here"} 
-        multiline
-        variant="outlined"
-        />
+	console.log(text);
 
-    <Button variant="outlined" onClick={onSubmit}>Submit</Button>
-    </Stack>
-      
-    </form>
-  );
+	const handleComment = (event) => {
+		event.preventDefault();
+
+		const payload = {
+			post,
+			commentTitle: text,
+			isReply,
+			parentComment,
+		};
+
+		axiosWithAuth
+			.post('http://localhost:4000/posts/comment', payload)
+			.then((res) => {
+				console.log(rootComments);
+				if (rootComments) {
+					setRootComments([...rootComments, res.data.comment]);
+				} else {
+					setRootComments([res.data.comment]);
+				}
+
+				if (isReply) {
+					setIsReplying(false);
+				}
+			})
+			.catch((err) => console.log(err));
+
+		setText('');
+	};
+	return (
+		<form onSubmit={handleComment}>
+			<Stack direction='row' spacing={2}>
+				<TextField
+					onChange={(e) => setText(e.target.value)}
+					value={text}
+					fullWidth
+					placeholder='Type comment here'
+					variant='outlined'
+				/>
+
+				<Button type='submit' color='neutral' variant='soft'>
+					<SendIcon color='primary' />
+				</Button>
+			</Stack>
+		</form>
+	);
 };
 
 export default CommentForm;

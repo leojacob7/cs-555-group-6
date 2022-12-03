@@ -1,10 +1,10 @@
-import { Avatar, Box, Button, Typography, TextField } from '@mui/joy';
+import { Avatar, Box, Button, Typography } from '@mui/joy';
 import { Divider, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
 import moment from 'moment';
-import SendIcon from '@mui/icons-material/Send';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import CommentIcon from '@mui/icons-material/Comment';
 import Comments from './Comments';
 import { useAxios } from '../utils/apiCalls';
 import { useAuth } from '../context/userContext';
@@ -14,6 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const Post = ({ post }) => {
 	const { user } = useAuth();
 	const [likedPost, setLikedPost] = React.useState(false);
+	const [isCommenting, setIsCommenting] = React.useState(false);
 	const [likeCounter, setLikeCounter] = React.useState(post.likes.length);
 	const { operation } = useAxios();
 
@@ -68,9 +69,6 @@ const Post = ({ post }) => {
 								{post?.user?.firstName} {post?.user?.lastName}
 							</Typography>
 						</Link>
-						<Typography as='u' fontSize='sm'>
-							{/* <Link to={'/profile'}>@{post.user.username}</Link> */}
-						</Typography>
 						<Typography level='body2'>
 							{moment(post.created).fromNow()}
 						</Typography>
@@ -81,47 +79,59 @@ const Post = ({ post }) => {
 						{post.title}
 					</Typography>
 				</Box>
-				<Divider sx={{ width: '100%', marginY: '2%' }} />
+				<Divider sx={{ width: '100%' }} />
 				<Stack
 					direction='row'
+					py={2}
 					spacing={2}
 					justifyContent='center'
-					alignItems='center'
-					width='5rem'>
+					alignItems='center'>
 					<Button
 						sx={{
-							marginBottom: '10%',
 							display: 'flex',
 							alignItems: 'space-between',
 							justifyContent: 'space-between',
 							width: '5rem',
 						}}
-						variant='soft'
+						startDecorator={
+							likedPost ? (
+								<ThumbUpIcon color='secondary' />
+							) : (
+								<ThumbUpOutlinedIcon color='secondary' />
+							)
+						}
+						size='sm'
+						variant={likedPost ? 'solid' : 'soft'}
 						color='primary'
 						onClick={likePost}>
-						<Typography
-							level='body1'
-							component='p'
-							sx={{ marginY: '10%' }}>
-							{likeCounter}
-						</Typography>
-						{likedPost ? (
-							<ThumbUpIcon color='secondary' />
-						) : (
-							<ThumbUpOutlinedIcon color='secondary' />
-						)}
+						{likeCounter}
+					</Button>
+
+					<Button
+						sx={{
+							display: 'flex',
+							alignItems: 'space-between',
+							justifyContent: 'space-between',
+							width: '5rem',
+						}}
+						startDecorator={<CommentIcon />}
+						size='sm'
+						variant={isCommenting ? 'solid' : 'soft'}
+						color='primary'
+						onClick={() => setIsCommenting(!isCommenting)}>
+						{post.comments.length}
 					</Button>
 				</Stack>
 				<Divider sx={{ width: '100%' }} />
-				<Box sx={{ width: '100%', marginY: '2%' }}>
-					<Stack direction='row' spacing={2}>
-						{/* <TextField fullWidth variant='soft' placeholder='Add a comment' /> */}
-						<Box sx={{ width: '100%', marginY: '2%' }}>
-							<Comments post={post} />
+				<Box sx={{ width: '100%' }}>
+					<Stack direction='row'>
+						<Box sx={{ width: '100%' }}>
+							<Comments
+								post={post._id}
+								comments={post.comments}
+								isCommenting={isCommenting}
+							/>
 						</Box>
-						<Button variant='soft'>
-							<SendIcon color='secondary' />
-						</Button>
 					</Stack>
 				</Box>
 			</Stack>
